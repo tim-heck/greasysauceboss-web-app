@@ -27,6 +27,7 @@ import ManageMerch from '../Admin/ManageMerch/ManageMerch';
 import ManageShows from '../Admin/ManageShows/ManageShows';
 import MerchForm from '../Admin/ManageMerch/MerchForm';
 import ShowsForm from '../Admin/ManageShows/ShowsForm';
+import MerchPage from '../MerchPage/MerchPage';
 
 class App extends Component {
   componentDidMount () {
@@ -59,7 +60,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/merch"
-              component={UserPage}
+              component={MerchPage}
             />
             <Route
               exact
