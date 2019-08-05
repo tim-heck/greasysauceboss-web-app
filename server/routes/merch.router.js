@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
+/**
+ * GET route for all products
+ */
 router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM products;`;
     pool.query(sqlText).then(result => {
@@ -12,6 +15,9 @@ router.get('/', (req, res) => {
     })
 })
 
+/**
+ * POST route for a new product
+ */
 router.post('/', (req, res) => {
     const sqlText = `
         INSERT INTO products (title, description, price_pennies, image_url)
@@ -27,6 +33,9 @@ router.post('/', (req, res) => {
     })
 })
 
+/**
+ * PUT route for updating a specific product
+ */
 router.put('/:id', (req, res) => {
     const sqlText = `
         UPDATE products SET title = $1, description = $2, price_pennies = $3, image_url = $4
@@ -42,6 +51,9 @@ router.put('/:id', (req, res) => {
     })
 })
 
+/**
+ * DELETE route for deleting a specific product
+ */
 router.delete('/:id', (req, res) => {
     const sqlText = `
         DELETE FROM products WHERE id = $1;
