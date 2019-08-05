@@ -15,10 +15,14 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import './App.css';
 
-import AboutPage from '../AboutPage/AboutPage';
+// import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+// import InfoPage from '../InfoPage/InfoPage';
 import HomePage from '../HomePage/HomePage';
+import BandPage from '../BandPage/BandPage';
+import ShowsPage from '../ShowsPage/ShowsPage';
+import ReleasesPage from '../ReleasesPage/ReleasesPage';
+import CartPage from '../CartPage/CartPage';
 
 class App extends Component {
   componentDidMount () {
@@ -39,22 +43,37 @@ class App extends Component {
               path="/news"
               component={HomePage}
             />
-            {/* <Route
+            <Route
               exact
-              path="/about"
-              component={BandPage}
-            /> */}
+              path="/shows"
+              component={ShowsPage}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/home will show the UserPage if the user is logged in.
+            Visiting localhost:3000/merch will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
-            {/* <ProtectedRoute
+            <ProtectedRoute
               exact
               path="/merch"
-              component={MerchPage}
-            /> */}
+              component={UserPage}
+            />
+            <Route
+              exact
+              path="/band"
+              component={BandPage}
+            />
+            <Route
+              exact
+              path="/releases"
+              component={ReleasesPage}
+            />
+            {/* This works the same as the other protected route, except that if the user is logged in,
+            they will see the info page instead. */}
+            <ProtectedRoute
+              exact
+              path="/cart"
+              component={CartPage}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
