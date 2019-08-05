@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
+/**
+ * GET route for all shows
+ */
 router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM shows;`;
     pool.query(sqlText).then(result => {
@@ -12,6 +15,9 @@ router.get('/', (req, res) => {
     })
 })
 
+/**
+ * POST route for adding a new show
+ */
 router.post('/', (req, res) => {
     const sqlText = `
         INSERT INTO shows (show_date, location, ticket, ticket_url)
@@ -27,6 +33,9 @@ router.post('/', (req, res) => {
     })
 })
 
+/**
+ * PUT route for updating a specific show
+ */
 router.put('/:id', (req, res) => {
     const sqlText = `
         UPDATE shows SET show_date = $1, location = $2, ticket = $3, ticket_url = $4
@@ -42,6 +51,9 @@ router.put('/:id', (req, res) => {
     })
 })
 
+/**
+ * DELETE route for deleting a specific show
+ */
 router.delete('/:id', (req, res) => {
     const sqlText = `
         DELETE FROM shows WHERE id = $1;
