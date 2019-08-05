@@ -23,6 +23,10 @@ import BandPage from '../BandPage/BandPage';
 import ShowsPage from '../ShowsPage/ShowsPage';
 import ReleasesPage from '../ReleasesPage/ReleasesPage';
 import CartPage from '../CartPage/CartPage';
+import ManageMerch from '../Admin/ManageMerch/ManageMerch';
+import ManageShows from '../Admin/ManageShows/ManageShows';
+import MerchForm from '../Admin/ManageMerch/MerchForm';
+import ShowsForm from '../Admin/ManageShows/ShowsForm';
 
 class App extends Component {
   componentDidMount () {
@@ -73,6 +77,26 @@ class App extends Component {
               exact
               path="/cart"
               component={CartPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/manage-shows"
+              component={ManageShows}
+            />
+            <ProtectedRoute
+              exact
+              path="/manage-merch"
+              component={ManageMerch}
+            />
+            <ProtectedRoute
+              exact
+              path="/merch-form"
+              component={MerchForm}
+            />
+            <ProtectedRoute
+              exact
+              path="/shows-form"
+              component={ShowsForm}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

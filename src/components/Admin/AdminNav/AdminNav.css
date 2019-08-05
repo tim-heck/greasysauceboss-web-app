@@ -1,0 +1,13 @@
+.admin-nav {
+    background-color: #c5c6c7;
+}
+
+.admin-nav-link {
+    background-color: #c5c6c7;
+    padding: 15px 10px 10px;
+}
+
+.admin-nav-link:hover {
+    color: #1f2833;
+    border-bottom: 5px solid #1f2833;
+}
