@@ -29,7 +29,7 @@
 the nav bar look like another link */
 .nav-link-button {
   border: none;
-  padding-bottom: 25px;
+  padding-bottom: 20px;
   cursor: pointer;
   outline: 0;
 }
