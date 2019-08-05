@@ -10,13 +10,16 @@ const Nav = (props) => (
       <img className="logo" src="images/greasysauceboss-logo-w.svg" alt="GreasySauceBoss" />
     </Link>
     <div className="nav-right">
+      <Link className="nav-link" to="/news">
+        News
+      </Link>
       <Link className="nav-link" to="/shows">
         Shows
       </Link>
       <Link className="nav-link" to="/merch">
         Merch
       </Link>
-      <Link className="nav-link" to="/about">
+      <Link className="nav-link" to="/band">
         Band
       </Link>
       <Link className="nav-link" to="/releases">
@@ -25,6 +28,12 @@ const Nav = (props) => (
       <Link className="nav-link" to="/cart">
         Your Cart
       </Link>
+      {/* Show the link to the info page and the logout button if the user is logged in */}
+      {props.user.id && (
+        <>
+          <LogOutButton className="nav-link"/>
+        </>
+      )}
     </div>
     
 
