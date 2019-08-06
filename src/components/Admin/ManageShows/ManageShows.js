@@ -24,7 +24,7 @@ class ManageShows extends Component {
                         <li key={item.id}>
                             <h3>{item.show_date}</h3>
                             <p>{item.location}</p>
-                            <button onClick={() => this.handleClick('edit', item)}>Edit</button>
+                            {/* <button onClick={() => this.handleClick('edit', item)}>Edit</button> */}
                             <button onClick={() => this.handleClick('delete', item)}>Delete</button>
                         </li>
                     )}
