@@ -5,6 +5,7 @@ class ManageShows extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_SHOWS' });
+        this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
     handleClick = (dispatchType, showToModify) => {
@@ -12,7 +13,7 @@ class ManageShows extends Component {
             this.props.history.push('/shows-form');
         } else if (dispatchType === 'edit') {
             this.props.dispatch({ type: 'EDIT_SHOW', payload: showToModify });
-            // this.props.dispatch({ type: 'EDIT_MODE', payload: {edit: true} });
+            this.props.dispatch({ type: 'EDIT_MODE', payload: {edit: true} });
             this.props.history.push('/shows-form');
         } else {
             this.props.dispatch({ type: 'DELETE_SHOW', payload: showToModify })

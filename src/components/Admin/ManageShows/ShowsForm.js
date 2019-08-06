@@ -24,8 +24,26 @@ class ShowsForm extends Component {
         }
     }
 
-    handleSubmit = () => {
-        this.props.dispatch({type: 'ADD_SHOW', payload: this.state});
+    handleSubmit = (event, addOrEdit) => {
+        event.preventDefault();
+        if (addOrEdit === 'add') {
+            this.props.dispatch({ type: 'ADD_SHOW', payload: this.state });
+        } else {
+            this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state });
+        }
+        this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+    }
+
+    checkEditMode = () => {
+        if (this.props.reduxStore.editMode.edit) {
+            return (
+                <button type="submit" onClick={(event) => this.handleSubmit(event, 'edit')}>Update</button>
+            );
+        } else {
+            return (
+                <button type="submit" onClick={(event) => this.handleSubmit(event, 'add')}>Submit</button>
+            );
+        }
     }
 
     render() {
@@ -33,7 +51,7 @@ class ShowsForm extends Component {
         return (
             <>
                 <h2>Show Form</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <label>Show Date:</label>
                     <input type="text" value={this.state.date} onChange={(event) => this.handleChangeFor(event, 'date')} required />
                     <label>Location:</label>
@@ -43,11 +61,15 @@ class ShowsForm extends Component {
                     <input type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')}/>
                     <label>Tickets URL:</label>
                     <input type="text" value={this.state.ticket_url} onChange={(event) => this.handleChangeFor(event, 'ticket_url')}/>
-                    <button type="submit">Submit</button>
+                    {this.checkEditMode()}
                 </form>
             </>
         );
     }
 }
 
-export default connect()(ShowsForm);
+const stateToProps = (reduxStore) => ({
+    reduxStore
+});
+
+export default connect(stateToProps)(ShowsForm);
