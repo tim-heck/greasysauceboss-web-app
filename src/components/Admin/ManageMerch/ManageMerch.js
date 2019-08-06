@@ -26,7 +26,7 @@ class ManageMerch extends Component {
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                             <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
-                            <button onClick={() => this.handleClick('edit', item)}>Edit</button>
+                            {/* <button onClick={() => this.handleClick('edit', item)}>Edit</button> */}
                             <button onClick={() => this.handleClick('delete', item)}>Delete</button>
                         </li>
                     )}
