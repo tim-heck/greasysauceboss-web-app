@@ -10,11 +10,13 @@ class HomePage extends Component {
                 <div className="youtube-embed">
                     <div className="youtube-card">
                         <h2>Latest Video</h2>
-                        <iframe width="560" height="315"
+                        <iframe 
+                            width="560" height="315"
                             src="https://www.youtube.com/embed/Rl66Yq-rUHA"
                             frameborder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                            allowfullscreen title="Lastest Video">
+                        </iframe>
                     </div>
                 </div>
                 <div id="block" className="flex-container-home">
