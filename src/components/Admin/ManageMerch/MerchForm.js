@@ -17,6 +17,10 @@ class MerchForm extends Component {
         })
     }
 
+    handleSubmit = () => {
+        this.props.dispatch({ type: 'ADD_MERCH', payload: this.state });
+    }
+
     render() {
         console.log(this.state);
         return (
@@ -33,6 +37,7 @@ class MerchForm extends Component {
                     <input type="number" value={this.state.price_pennies} onChange={(event) => this.handleChangeFor(event, 'price_pennies')} required />
                     <label>Local Image URL:</label>
                     <input type="text" value={this.state.image_url} onChange={(event) => this.handleChangeFor(event, 'image_url')} required />
+                    <button type="submit">Submit</button>
                 </form>
             </>
         );

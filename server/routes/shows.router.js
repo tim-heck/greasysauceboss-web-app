@@ -6,7 +6,7 @@ const pool = require('../modules/pool');
  * GET route for all shows
  */
 router.get('/', (req, res) => {
-    console.log('shows GET route')
+    // console.log('shows GET route')
     const sqlText = `SELECT * FROM shows;`;
     pool.query(sqlText).then(result => {
         console.log(result);

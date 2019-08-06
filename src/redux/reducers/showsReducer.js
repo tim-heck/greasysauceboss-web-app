@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const showsReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SHOWS':
@@ -7,4 +9,17 @@ const showsReducer = (state = [], action) => {
     }
 }
 
-export default showsReducer;
+const editShowReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'EDIT_SHOW':
+            console.log(action.payload);
+            // return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    showsReducer,
+    editShowReducer,
+});

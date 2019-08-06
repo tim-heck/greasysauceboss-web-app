@@ -24,6 +24,10 @@ class ShowsForm extends Component {
         }
     }
 
+    handleSubmit = () => {
+        this.props.dispatch({type: 'ADD_SHOW', payload: this.state});
+    }
+
     render() {
         console.log(this.state);
         return (
@@ -39,6 +43,7 @@ class ShowsForm extends Component {
                     <input type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')}/>
                     <label>Tickets URL:</label>
                     <input type="text" value={this.state.ticket_url} onChange={(event) => this.handleChangeFor(event, 'ticket_url')}/>
+                    <button type="submit">Submit</button>
                 </form>
             </>
         );
