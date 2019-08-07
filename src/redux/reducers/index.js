@@ -5,6 +5,7 @@ import user from './userReducer';
 import merch from './merchReducer';
 import shows from './showsReducer';
 import editMode from './editModeReducer';
+import cart from './cartReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   merch,
   shows,
   editMode,
+  cart,
 });
 
 export default rootReducer;
