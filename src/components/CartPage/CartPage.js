@@ -31,6 +31,16 @@ class CartPage extends Component {
     //     }
     // }
 
+    state = {
+        quantity: 1
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            quantity: event.target.value
+        })
+    }
+
     reviewOrder = () => {
         if (this.props.reduxStore.cart.length > 0) {
             return (
@@ -65,7 +75,7 @@ class CartPage extends Component {
                             <h4>{item.price_pennies}</h4>
                             <div>
                                 <button onClick={this.decrementQuantity}>-</button>
-                                <input type="number"/>
+                                <input type="number" defaultValue={item.quantity} onChange={this.handleChange} />
                                 <button onClick={this.incrementQuantity}>+</button>
                             </div>
                             <button onClick={() => this.removeCartItem(item)}>Remove</button>
