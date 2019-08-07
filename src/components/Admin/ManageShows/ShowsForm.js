@@ -10,6 +10,21 @@ class ShowsForm extends Component {
         ticket_url: ''
     }
 
+    componentDidMount() {
+        let ticketUrl = '';
+        if (this.props.reduxStore.shows.editShowReducer.ticket_url !== null) {
+            ticketUrl = this.props.reduxStore.shows.editShowReducer.ticket_url;
+        }
+        if (this.props.reduxStore.editMode.edit) {
+            this.setState({
+                date: this.props.reduxStore.shows.editShowReducer.show_date,
+                location: this.props.reduxStore.shows.editShowReducer.location,
+                ticket: this.props.reduxStore.shows.editShowReducer.ticket,
+                ticket_url: ticketUrl
+            })
+        }
+    }
+
     handleChangeFor = (event, propToChange) => {
         if (propToChange === 'ticket') {
             this.setState({
@@ -46,6 +61,18 @@ class ShowsForm extends Component {
         }
     }
 
+    checkTickets = () => {
+        if (this.props.reduxStore.shows.editShowReducer.ticket) {
+            return (
+                <input id="ticket-checkbox" type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} checked />
+            );
+        } else {
+            return (
+                <input id="ticket-checkbox" type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} />
+            );
+        }
+    }
+
     render() {
         console.log(this.state);
         return (
@@ -58,7 +85,7 @@ class ShowsForm extends Component {
                     <input type="text" value={this.state.location} onChange={(event) => this.handleChangeFor(event, 'location')} required />
                     <br/>
                     <label>Tickets?:</label>
-                    <input type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')}/>
+                    {this.checkTickets()}
                     <label>Tickets URL:</label>
                     <input type="text" value={this.state.ticket_url} onChange={(event) => this.handleChangeFor(event, 'ticket_url')}/>
                     {this.checkEditMode()}

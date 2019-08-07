@@ -17,8 +17,26 @@ class MerchForm extends Component {
         })
     }
 
-    handleSubmit = () => {
-        this.props.dispatch({ type: 'ADD_MERCH', payload: this.state });
+    handleSubmit = (event, addOrEdit) => {
+        event.preventDefault();
+        if (addOrEdit === 'add') {
+            this.props.dispatch({ type: 'ADD_MERCH', payload: this.state });
+        } else {
+            this.props.dispatch({ type: 'UPDATE_MERCH', payload: this.state });
+        }
+        this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+    }
+
+    checkEditMode = () => {
+        if (this.props.reduxStore.editMode.edit) {
+            return (
+                <button type="submit" onClick={(event) => this.handleSubmit(event, 'edit')}>Update</button>
+            );
+        } else {
+            return (
+                <button type="submit" onClick={(event) => this.handleSubmit(event, 'add')}>Submit</button>
+            );
+        }
     }
 
     render() {
@@ -26,7 +44,7 @@ class MerchForm extends Component {
         return (
             <>
                 <h2>Merch Form</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <label>Title:</label>
                     <input type="text" value={this.state.title} onChange={(event) => this.handleChangeFor(event, 'title')} required />
                     <br />
@@ -37,11 +55,16 @@ class MerchForm extends Component {
                     <input type="number" value={this.state.price_pennies} onChange={(event) => this.handleChangeFor(event, 'price_pennies')} required />
                     <label>Local Image URL:</label>
                     <input type="text" value={this.state.image_url} onChange={(event) => this.handleChangeFor(event, 'image_url')} required />
-                    <button type="submit">Submit</button>
+                    {this.checkEditMode()}
                 </form>
+                {JSON.stringify(this.props.reduxStore.editMode)}
             </>
         );
     }
 }
 
-export default connect()(MerchForm);
+const stateToProps = (reduxStore) => ({
+    reduxStore
+});
+
+export default connect(stateToProps)(MerchForm);
