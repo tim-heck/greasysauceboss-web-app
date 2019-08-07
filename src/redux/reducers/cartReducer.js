@@ -22,10 +22,15 @@ const cart = (state = [], action) => {
             }
             return state;
         case 'REMOVE_ITEM':
-            // console.log(state.indexOf(action.payload))
-            // state = state.slice(state.indexOf(action.payload));
-            // console.log(state);
-            // return state;
+            let itemIndex = state.indexOf(action.payload);
+            let objectToRemove = state.splice(itemIndex, 1);
+            let newCart = [];
+            for (let i = 0; i < state.length; i++){
+                if (state[i] !== objectToRemove) {
+                    newCart.push(state[i]);
+                }
+            }
+            return newCart; 
         case 'CLEAR_CART':
             // console.log('clear cart:', action.payload);
             state = action.payload;
