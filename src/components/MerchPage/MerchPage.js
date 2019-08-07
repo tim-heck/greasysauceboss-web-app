@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CheckoutBtn from '../CheckoutBtn/CheckoutBtn';
 
 class MerchPage extends Component {
 
@@ -7,10 +8,29 @@ class MerchPage extends Component {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
     }
 
+    addToCart = (product) => {
+        this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+    }
+
+    // goToCheckout = () => {
+    //     // FOR STRIPE -> STRETCH GOAL
+    //     // this.props.dispatch({ type: 'CREATE_SESSION', payload: this.state.cart });
+    //     this.props.dispatch({ type: 'ADD_TO_CART', payload: this.state.cart }); // may not need
+    //     this.props.history.push('/checkout');
+    // }
+
+    // clearCart = () => {
+    //     this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
+    //     this.setState({
+    //         cart: []
+    //     })
+    // }
+
     render() {
+        console.log('Cart',this.props.reduxStore.cart);
         return (
             <>
-                {/* <h2>Upcoming Shows</h2> */}
+                <h2>Merch</h2>
                 <ul>
                     {this.props.reduxStore.merch.merchReducer.map(item =>
                         <li key={item.id}>
@@ -18,6 +38,7 @@ class MerchPage extends Component {
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                             <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
+                            <button onClick={() => this.addToCart(item)}>Add to Cart</button>
                             {/* <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
                                 Add to Cart
                             </Button> */}

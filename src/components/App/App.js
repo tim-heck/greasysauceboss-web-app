@@ -28,6 +28,7 @@ import ManageShows from '../Admin/ManageShows/ManageShows';
 import MerchForm from '../Admin/ManageMerch/MerchForm';
 import ShowsForm from '../Admin/ManageShows/ShowsForm';
 import MerchPage from '../MerchPage/MerchPage';
+import ReviewPage from '../ReviewPage/ReviewPage';
 
 class App extends Component {
   componentDidMount () {
@@ -78,6 +79,11 @@ class App extends Component {
               exact
               path="/cart"
               component={CartPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/review-order"
+              component={ReviewPage}
             />
             <ProtectedRoute
               exact
