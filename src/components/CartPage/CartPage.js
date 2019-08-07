@@ -47,6 +47,11 @@ class CartPage extends Component {
         this.props.history.push('/review-order');
     }
 
+    removeCartItem = (product) => {
+        console.log(product)
+        this.props.dispatch({ type: 'REMOVE_ITEM', payload: product });
+    }
+
     render() {
         return (
             <>
@@ -58,6 +63,12 @@ class CartPage extends Component {
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                             <h4>{item.price_pennies}</h4>
+                            <div>
+                                <button onClick={this.decrementQuantity}>-</button>
+                                <input type="number"/>
+                                <button onClick={this.incrementQuantity}>+</button>
+                            </div>
+                            <button onClick={() => this.removeCartItem(item)}>Remove</button>
                         </li>
                     )}
                 </ul>

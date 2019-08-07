@@ -9,21 +9,15 @@ class MerchPage extends Component {
     }
 
     addToCart = (product) => {
-        let cartItem = {
-            title: product.title,
-            description: product.description,
-            price: product.price_pennies,
-            image_url: product.image_url
-        }
-        this.props.dispatch({ type: 'ADD_TO_CART', payload: cartItem });
+        this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
     }
 
-    goToCheckout = () => {
-        // FOR STRIPE -> STRETCH GOAL
-        // this.props.dispatch({ type: 'CREATE_SESSION', payload: this.state.cart });
-        this.props.dispatch({ type: 'ADD_TO_CART', payload: this.state.cart }); // may not need
-        this.props.history.push('/checkout');
-    }
+    // goToCheckout = () => {
+    //     // FOR STRIPE -> STRETCH GOAL
+    //     // this.props.dispatch({ type: 'CREATE_SESSION', payload: this.state.cart });
+    //     this.props.dispatch({ type: 'ADD_TO_CART', payload: this.state.cart }); // may not need
+    //     this.props.history.push('/checkout');
+    // }
 
     // clearCart = () => {
     //     this.props.dispatch({ type: 'CLEAR_CART', payload: [] });

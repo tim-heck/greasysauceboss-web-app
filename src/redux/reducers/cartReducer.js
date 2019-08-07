@@ -6,6 +6,11 @@ const cart = (state = [], action) => {
                 action.payload
             ];
             return state;
+        case 'REMOVE_ITEM':
+            console.log(state.indexOf(action.payload))
+            state = state.slice(state.indexOf(action.payload));
+            console.log(state);
+            // return state;
         case 'CLEAR_CART':
             // console.log('clear cart:', action.payload);
             state = action.payload;
