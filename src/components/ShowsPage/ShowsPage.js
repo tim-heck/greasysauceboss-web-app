@@ -20,7 +20,7 @@ class ShowsPage extends Component {
             <>
                 <h2>Upcoming Shows</h2>
                 <ul>
-                    {this.props.reduxStore.shows.map(item =>
+                    {this.props.reduxStore.shows.showsReducer.map(item =>
                         <li key={item.id}>
                             <h3>{item.show_date}</h3>
                             <p>{item.location}</p>
