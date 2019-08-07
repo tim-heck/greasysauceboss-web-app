@@ -21,10 +21,18 @@ class ReleasesPage extends Component {
                 </div>
                 <p>Visit any of our streaming platforms</p>
                 <ul>
-                    <li><a href="https://open.spotify.com/artist/3hK4PlTiLZ3XTq7UguJoUz?si=RQu9FHKKS1uWIjE_moDciQ" target="_blank">Spotify</a></li>
-                    <li><a href="https://music.apple.com/us/artist/greasysauceboss/1436780055" target="_blank">Apple Music</a></li>
-                    <li><a href="https://soundcloud.com/greasysauceboss" target="_blank">SoundCloud</a></li>
-                    <li><a href="https://www.youtube.com/channel/UCwHKV6ptEmJLQ16qpFg-Smw" target="_blank">YouTube</a></li>
+                    <li><a 
+                        href="https://open.spotify.com/artist/3hK4PlTiLZ3XTq7UguJoUz?si=RQu9FHKKS1uWIjE_moDciQ" 
+                        target="_blank" rel="noopener noreferrer">Spotify</a></li>
+                    <li><a 
+                        href="https://music.apple.com/us/artist/greasysauceboss/1436780055" 
+                        target="_blank" rel="noopener noreferrer">Apple Music</a></li>
+                    <li><a 
+                        href="https://soundcloud.com/greasysauceboss" 
+                        target="_blank" rel="noopener noreferrer">SoundCloud</a></li>
+                    <li><a 
+                        href="https://www.youtube.com/channel/UCwHKV6ptEmJLQ16qpFg-Smw" 
+                        target="_blank" rel="noopener noreferrer">YouTube</a></li>
                 </ul>
             </>
         );

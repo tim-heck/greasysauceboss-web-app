@@ -30,8 +30,9 @@ function* addShow(action) {
 
 function* updateShow(action) {
     console.log('in updateShows');
+    console.log('action.payload in PUT', action.payload)
     try {
-        yield axios.put(`/api/shows/${action.payload.id}`);
+        yield axios.put(`/api/shows/${action.payload.id}`, action.payload);
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
         console.log('error with getting shows', err);

@@ -12,7 +12,7 @@ class MerchPage extends Component {
             <>
                 {/* <h2>Upcoming Shows</h2> */}
                 <ul>
-                    {this.props.reduxStore.merch.map(item =>
+                    {this.props.reduxStore.merch.merchReducer.map(item =>
                         <li key={item.id}>
                             <img height="150" src={item.image_url} alt="" />
                             <h2>{item.title}</h2>

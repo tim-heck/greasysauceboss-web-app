@@ -34,6 +34,7 @@ function* fetchProducts(action) {
 
 function* addProduct(action) {
     console.log('in addProduct');
+    console.log('POST action.payload:', action.payload)
     try {
         yield axios.post('/api/merch', action.payload);
         yield put({ type: 'FETCH_PRODUCTS'});
@@ -45,7 +46,7 @@ function* addProduct(action) {
 function* updateProduct(action) {
     console.log('in updateProduct');
     try {
-        yield axios.put(`/api/merch/${action.payload.id}`);
+        yield axios.put(`/api/merch/${action.payload.id}`, action.payload);
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
         console.log('error with getting products', err);

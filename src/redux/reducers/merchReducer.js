@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 // FOR STRIPE -> STRETCH GOAL
 // const checkoutSession = (state = [], action) => {
 //     switch (action.type) {
@@ -17,4 +19,22 @@ const merchReducer = (state = [], action) => {
     }
 }
 
-export default merchReducer;
+/**
+ * Reducer that keeps track of the currect product that is being updated
+ * Information is stored when the user clicks the edit button
+ * @param {object} state where that product's information will be stored and accessible
+ * @param {object} action specific products information that is being updated
+ */
+const editMerchReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'EDIT_PRODUCT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    merchReducer,
+    editMerchReducer,
+});
