@@ -34,7 +34,17 @@ const editMerchReducer = (state = {}, action) => {
     }
 }
 
+const viewMerchReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_VIEW_PRODUCT':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     merchReducer,
     editMerchReducer,
+    viewMerchReducer,
 });

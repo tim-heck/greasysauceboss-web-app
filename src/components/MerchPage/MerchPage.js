@@ -7,6 +7,12 @@ class MerchPage extends Component {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
     }
 
+    viewProduct = (product) => {
+        this.props.dispatch({type: 'VIEW_PRODUCT', payload: product.id});
+        let urlTitle = product.title.toLowerCase().replace(/ /g, '-');
+        this.props.history.push(`/merch/${product.id}/${urlTitle}`);
+    }
+
     render() {
         return (
             <>
@@ -14,7 +20,7 @@ class MerchPage extends Component {
                 <ul>
                     {this.props.reduxStore.merch.merchReducer.map(item =>
                         <li key={item.id}>
-                            <img height="150" src={item.image_url} alt="" />
+                            <img height="150" src={item.image_url} alt="" onClick={() => this.viewProduct(item)}/>
                             <h2>{item.title}</h2>
                             <p>{item.description}</p>
                             <h4>{(item.price_pennies / 100).toFixed(2)}</h4>

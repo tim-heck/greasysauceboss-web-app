@@ -16,6 +16,19 @@ router.get('/', (req, res) => {
 })
 
 /**
+ * GET route for specific product
+ */
+router.get('/:id', (req, res) => {
+    const sqlText = `SELECT * FROM products WHERE id = $1;`;
+    pool.query(sqlText, [req.params.id]).then(result => {
+        res.send(result.rows);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
+/**
  * POST route for a new product
  */
 router.post('/', (req, res) => {
