@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CheckoutBtn from '../CheckoutBtn/CheckoutBtn';
 
 class MerchPage extends Component {
-
-    state = {
-        cart: []
-    }
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
     }
 
     addToCart = (product) => {
-        this.setState({
-            cart: [
-                ...this.state.cart,
-                {
-                    title: product.title,
-                    description: product.description,
-                    price: product.price_pennies,
-                    image_url: product.image_url
-                }
-            ]
-        });
+        let cartItem = {
+            title: product.title,
+            description: product.description,
+            price: product.price_pennies,
+            image_url: product.image_url
+        }
+        this.props.dispatch({ type: 'ADD_TO_CART', payload: cartItem });
     }
 
     goToCheckout = () => {
@@ -32,14 +25,15 @@ class MerchPage extends Component {
         this.props.history.push('/checkout');
     }
 
-    clearCart = () => {
-        this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
-        this.setState({
-            cart: []
-        })
-    }
+    // clearCart = () => {
+    //     this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
+    //     this.setState({
+    //         cart: []
+    //     })
+    // }
 
     render() {
+        console.log('Cart',this.props.reduxStore.cart);
         return (
             <>
                 <h2>Merch</h2>
@@ -57,7 +51,6 @@ class MerchPage extends Component {
                         </li>
                     )}
                 </ul>
-                {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
             </>
         );
     }
