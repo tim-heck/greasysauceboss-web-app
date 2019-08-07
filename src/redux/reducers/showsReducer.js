@@ -9,6 +9,12 @@ const showsReducer = (state = [], action) => {
     }
 }
 
+/**
+ * Reducer that keeps track of the currect show that is being updated
+ * Information is stored when the user clicks the edit button
+ * @param {object} state where that show's information will be stored and accessible
+ * @param {object} action specific shows information that is being updated
+ */
 const editShowReducer = (state = {}, action) => {
     switch (action.type) {
         case 'EDIT_SHOW':

@@ -17,6 +17,7 @@ class ShowsForm extends Component {
         }
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
+                id: this.props.reduxStore.shows.editShowReducer.id,
                 date: this.props.reduxStore.shows.editShowReducer.show_date,
                 location: this.props.reduxStore.shows.editShowReducer.location,
                 ticket: this.props.reduxStore.shows.editShowReducer.ticket,
@@ -43,8 +44,11 @@ class ShowsForm extends Component {
         event.preventDefault();
         if (addOrEdit === 'add') {
             this.props.dispatch({ type: 'ADD_SHOW', payload: this.state });
+            this.props.history.push('/manage-shows');
         } else {
             this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state });
+            this.props.history.push('/manage-shows');
+
         }
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
@@ -62,19 +66,18 @@ class ShowsForm extends Component {
     }
 
     checkTickets = () => {
-        if (this.props.reduxStore.shows.editShowReducer.ticket) {
+        if (this.state.ticket) {
             return (
-                <input id="ticket-checkbox" type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} checked />
+                <input type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} checked/>
             );
         } else {
             return (
-                <input id="ticket-checkbox" type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} />
+                <input type="checkbox" onChange={(event) => this.handleChangeFor(event, 'ticket')} />
             );
         }
     }
 
     render() {
-        console.log(this.state);
         return (
             <>
                 <h2>Show Form</h2>

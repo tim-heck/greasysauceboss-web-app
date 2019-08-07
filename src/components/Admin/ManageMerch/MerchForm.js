@@ -10,6 +10,18 @@ class MerchForm extends Component {
         image_url: ''
     }
 
+    componentDidMount() {
+        if (this.props.reduxStore.editMode.edit) {
+            this.setState({
+                id: this.props.reduxStore.merch.editMerchReducer.id,
+                title: this.props.reduxStore.merch.editMerchReducer.title,
+                description: this.props.reduxStore.merch.editMerchReducer.description,
+                price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
+                image_url: this.props.reduxStore.merch.editMerchReducer.image_url
+            })
+        }
+    }
+
     handleChangeFor = (event, propToChange) => {
         this.setState({
             ...this.state,
@@ -20,9 +32,11 @@ class MerchForm extends Component {
     handleSubmit = (event, addOrEdit) => {
         event.preventDefault();
         if (addOrEdit === 'add') {
-            this.props.dispatch({ type: 'ADD_MERCH', payload: this.state });
+            this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state });
+            this.props.history.push('/manage-merch');
         } else {
-            this.props.dispatch({ type: 'UPDATE_MERCH', payload: this.state });
+            this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state });
+            this.props.history.push('/manage-merch');
         }
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
@@ -39,19 +53,7 @@ class MerchForm extends Component {
         }
     }
 
-    componentDidMount() {
-        if (this.props.reduxStore.editMode.edit) {
-            this.setState({
-                title: this.props.reduxStore.merch.editMerchReducer.title,
-                description: this.props.reduxStore.merch.editMerchReducer.description,
-                price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
-                image_url: this.props.reduxStore.merch.editMerchReducer.image_url
-            })
-        }
-    }
-
     render() {
-        console.log(this.state);
         return (
             <>
                 <h2>Merch Form</h2>

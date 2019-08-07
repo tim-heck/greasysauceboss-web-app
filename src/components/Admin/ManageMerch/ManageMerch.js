@@ -12,7 +12,7 @@ class ManageMerch extends Component {
         if (dispatchType === 'add') {
             this.props.history.push('/merch-form');
         } else if (dispatchType === 'edit') {
-            this.props.dispatch({ type: 'EDIT_MERCH', payload: merchToModify });
+            this.props.dispatch({ type: 'EDIT_PRODUCT', payload: merchToModify });
             this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: true } });
             this.props.history.push('/merch-form');
         } else {
