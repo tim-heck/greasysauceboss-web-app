@@ -39,6 +39,17 @@ class MerchForm extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.reduxStore.editMode.edit) {
+            this.setState({
+                title: this.props.reduxStore.merch.editMerchReducer.title,
+                description: this.props.reduxStore.merch.editMerchReducer.description,
+                price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
+                image_url: this.props.reduxStore.merch.editMerchReducer.image_url
+            })
+        }
+    }
+
     render() {
         console.log(this.state);
         return (

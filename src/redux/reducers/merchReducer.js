@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 // FOR STRIPE -> STRETCH GOAL
 // const checkoutSession = (state = [], action) => {
 //     switch (action.type) {
@@ -17,4 +19,16 @@ const merchReducer = (state = [], action) => {
     }
 }
 
-export default merchReducer;
+const editMerchReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'EDIT_MERCH':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    merchReducer,
+    editMerchReducer,
+});
