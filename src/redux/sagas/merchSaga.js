@@ -7,6 +7,7 @@ export default function* merchSaga() {
     yield takeEvery('ADD_PRODUCT', addProduct);
     yield takeEvery('UPDATE_PRODUCT', updateProduct);
     yield takeEvery('DELETE_PRODUCT', deleteProduct);
+    yield takeEvery('VIEW_PRODUCT', viewProduct);
 }
 
 // FOR STRIPE -> STRETCH GOAL
@@ -22,7 +23,7 @@ export default function* merchSaga() {
 //     }
 // }
 
-function* fetchProducts(action) {
+function* fetchProducts() {
     console.log('in fetchProducts');
     try {
         const response = yield axios.get('/api/merch');
@@ -39,7 +40,7 @@ function* addProduct(action) {
         yield axios.post('/api/merch', action.payload);
         yield put({ type: 'FETCH_PRODUCTS'});
     } catch (err) {
-        console.log('error with getting products', err);
+        console.log('error with adding products', err);
     }
 }
 
@@ -49,7 +50,7 @@ function* updateProduct(action) {
         yield axios.put(`/api/merch/${action.payload.id}`, action.payload);
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
-        console.log('error with getting products', err);
+        console.log('error with updating products', err);
     }
 }
 
@@ -59,6 +60,16 @@ function* deleteProduct(action) {
         yield axios.delete(`/api/merch/${action.payload.id}`);
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
-        console.log('error with getting products', err);
+        console.log('error with deleting products', err);
+    }
+}
+
+function* viewProduct(action) {
+    console.log('in viewProduct');
+    try {
+        const response = yield axios.get(`/api/merch/${action.payload}`);
+        yield put({ type: 'SET_VIEW_PRODUCT', payload: response.data[0] });
+    } catch (err) {
+        console.log('error with viewing product', err);
     }
 }
