@@ -6,8 +6,8 @@ class HomePage extends Component {
 
     componentDidMount() {
         document.getElementById('home-page').addEventListener('mousemove', function (event) {
-            let translateX = -((event.pageX - 400) * 0.2);
-            let translateY = -((event.pageY - 400) * 0.2);
+            let translateX = -((event.pageX - 700) * 0.3);
+            let translateY = -((event.pageY - 700) * 0.3);
             document.getElementById('block').style.transform = "translate(" + translateX + "px, " + translateY + "px)"
         })
     }
