@@ -17,16 +17,9 @@ class ReviewPage extends Component {
             type: 'ADD_ORDER', 
             payload: {
                 total_price_pennies: totalPricePennies,
-                // cart: this.props.reduxStore.cart
+                cart: this.props.reduxStore.cart
             }
         })
-        // console.log('order id:', this.props.r eduxStore.order.specificOrder)
-        // this.props.reduxStore.cart.map(item => {
-        //     this.props.dispatch({
-        //         type: 'ADD_CART',
-        //         payload: { quantity: item.quantity, order_id: this.props.reduxStore.order.specificOrder.id, product_id: item.id}
-        //     })
-        // })  
     }
 
     checkForProducts = () => {

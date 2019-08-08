@@ -32,11 +32,7 @@ function* addOrder(action) {
     console.log('in addOrder', action.payload);
     try {
         yield axios.post('/api/orders', action.payload);
-        console.log('order added', action.payload);
-        // yield put({ type: 'FETCH_ORDERS' });
-        // yield action.payload.cart.map(item => {
-        //     put({ type: 'ADD_CART', payload: item })
-        // })
+        yield put({ type: 'FETCH_ORDERS'});
     } catch (err) {
         console.log('error with adding orders', err);
     }
