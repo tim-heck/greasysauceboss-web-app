@@ -8,7 +8,7 @@
     flex-direction: column;
     flex-flow: column wrap;
     flex: 1;
-    padding-top: 120px;
+    /* padding-top: 120px; */
 }
 
 .flex-row-home {
@@ -32,7 +32,7 @@
 
 .youtube-embed {
     position: absolute;
-    margin: 200px auto;
+    margin: 100px auto;
     width: 100%;
     text-align: center;
     z-index: 100;
