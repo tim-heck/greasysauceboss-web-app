@@ -8,13 +8,14 @@
     flex-direction: column;
     flex-flow: column wrap;
     flex: 1;
+    padding-top: 120px;
 }
 
 .flex-row-home {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 250px;
+    height: 225px;
 }
 
 .flex-row-home:last-child {
@@ -31,9 +32,10 @@
 
 .youtube-embed {
     position: absolute;
-    margin: 100px auto;
+    margin: 200px auto;
     width: 100%;
     text-align: center;
+    z-index: 100;
 }
 
 .youtube-card {

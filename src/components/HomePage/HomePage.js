@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.css';
+import './backgroundMouseOver.js';
 
 class HomePage extends Component {
 
@@ -13,9 +14,9 @@ class HomePage extends Component {
                         <iframe 
                             width="560" height="315"
                             src="https://www.youtube.com/embed/Rl66Yq-rUHA"
-                            frameborder="0"
+                            frameBorder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen title="Lastest Video">
+                            allowFullScreen title="Lastest Video">
                         </iframe>
                     </div>
                 </div>

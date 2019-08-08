@@ -9,6 +9,10 @@
 .nav {
   overflow: hidden;
   background-color: #1f2833;
+  z-index: 200;
+  position: fixed;
+  width: 100%;
+  margin-bottom: 100px;
 }
 
 .nav-link {

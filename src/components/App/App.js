@@ -15,9 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import './App.css';
 
-// import AboutPage from '../AboutPage/AboutPage';
-// import UserPage from '../UserPage/UserPage';
-// import InfoPage from '../InfoPage/InfoPage';
 import HomePage from '../HomePage/HomePage';
 import BandPage from '../BandPage/BandPage';
 import ShowsPage from '../ShowsPage/ShowsPage';
@@ -33,9 +30,9 @@ import MerchItemPage from '../MerchPage/MerchItemPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
+  // componentDidMount () {
+  //   this.props.dispatch({type: 'FETCH_USER'})
+  // }
 
   render() {
     return (

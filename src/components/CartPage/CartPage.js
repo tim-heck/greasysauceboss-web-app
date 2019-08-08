@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CheckoutBtn from '../CheckoutBtn/CheckoutBtn';
 
 class CartPage extends Component {
 
