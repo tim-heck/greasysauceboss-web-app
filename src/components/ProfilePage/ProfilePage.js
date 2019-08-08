@@ -15,13 +15,20 @@ class ProfilePage extends Component {
                     <h2>Past Orders</h2>
                     <ul>
                         {this.props.reduxStore.order.userOrders.map((item, i) => 
-                            <li key={item.id}>
-                                <label>Order #: <span>{item.id}</span></label>
+                            <li key={i}>
+                                <label>Order #: <span>{item.order_id}</span></label>
+                                <br/>
+                                <label>Order Date: <span>{item.order_date}</span></label>
                                 <br/>
                                 <label>Products Ordered: </label>
                                     <ul>
-                                        <li></li>
+                                        <li><img height="100" src={item.image_url} alt={item.title} /></li>
+                                        <li>Quantity: {item.quantity}</li>
+                                        <li>{item.title}</li>
+                                        <li><p>{item.description}</p></li>
+                                        <li><h4>{item.price_pennies}</h4></li>
                                     </ul>
+                                <h4>Total Price: {item.total_price_pennies}</h4>
                             </li>
                         )}
                     </ul>
