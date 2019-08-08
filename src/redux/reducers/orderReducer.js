@@ -18,15 +18,6 @@ const userOrders = (state = [], action) => {
     }
 }
 
-const specificOrder = (state = {}, action) => {
-    switch (action.type) {
-        case 'SET_USER_ORDERs':
-            return action.payload;
-        default:
-            return state;
-    }
-}
-
 export default combineReducers({
     order,
     userOrders,

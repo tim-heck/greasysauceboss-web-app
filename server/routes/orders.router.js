@@ -14,7 +14,14 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:user_id', (req, res) => {
-    const sqlText = `SELECT * FROM orders WHERE user_id=$1;`;
+    const sqlText = `
+        SELECT orders.order_date, orders.user_id, orders.total_price_pennies, 
+        line_items.quantity, line_items.order_id, 
+        products.title, products.description, products.price_pennies, products.image_url
+        FROM orders
+        JOIN "user" ON "user".id = $1
+        JOIN line_items ON line_items.order_id = orders.id
+        JOIN products ON line_items.product_id = products.id;`;
     pool.query(sqlText, [req.user.id]).then(result => {
         res.send(result.rows);
     }).catch(err => {

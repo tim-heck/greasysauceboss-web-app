@@ -30,6 +30,7 @@ import ShowsForm from '../Admin/ManageShows/ShowsForm';
 import MerchPage from '../MerchPage/MerchPage';
 import ReviewPage from '../ReviewPage/ReviewPage';
 import MerchItemPage from '../MerchPage/MerchItemPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 class App extends Component {
   componentDidMount () {
@@ -90,6 +91,11 @@ class App extends Component {
               exact
               path="/review-order"
               component={ReviewPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/profile"
+              component={ProfilePage}
             />
             <ProtectedRoute
               exact
