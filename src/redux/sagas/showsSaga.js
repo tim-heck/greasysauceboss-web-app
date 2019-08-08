@@ -8,7 +8,7 @@ export default function* showsSaga() {
     yield takeEvery('DELETE_SHOW', deleteShow);
 }
 
-function* fetchShows(action) {
+function* fetchShows() {
     console.log('in fetchShows');
     try {
         const response = yield axios.get('/api/shows');

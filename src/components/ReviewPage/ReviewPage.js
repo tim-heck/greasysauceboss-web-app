@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 class ReviewPage extends Component {
 
     completeOrder = () => {
-
+        let totalPricePennies = 0;
+        let cart = this.props.reduxStore.cart;
+        for (let i = 0; i < cart.length; i++) {
+            totalPricePennies += cart[i].price_pennies * cart[i].quantity;
+        }
+        this.props.dispatch({type: 'COMPLETE_ORDER', payload: totalPricePennies})
     }
 
     checkForProducts = () => {
