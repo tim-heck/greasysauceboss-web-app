@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+// const axios = require('axios');
 
-router.get('/:user_id', (req, res) => {
-    const sqlText = `SELECT * FROM orders WHERE user_id=$1;`;
-    pool.query(sqlText, [req.params.user_id]).then(result => {
+router.get('/', (req, res) => {
+    const sqlText = `SELECT * FROM orders;`;
+    pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(err => {
         console.log(err);
@@ -12,19 +13,54 @@ router.get('/:user_id', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
-    const sqlText = `
-        INSERT INTO orders (order_date, user_id, total_price_pennies)
-        VALUES ($1, $2, $3);
-    `;
-    const values = [req.body.order_date, req.user.id, req.body.total_price_pennies];
-    pool.query(sqlText, values).then(result => {
-        console.log(result);
-        res.sendStatus(201);
+router.get('/:user_id', (req, res) => {
+    const sqlText = `SELECT * FROM orders WHERE user_id=$1;`;
+    pool.query(sqlText, [req.user.id]).then(result => {
+        res.send(result.rows);
     }).catch(err => {
         console.log(err);
         res.sendStatus(500);
     })
+})
+
+router.post('/', async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const {
+            total_price_pennies,
+            cart
+        } = req.body;
+        await client.query('BEGIN')
+        // Grabs date snippet from: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+
+        today = mm + '/' + dd + '/' + yyyy;
+        // end date snippet
+        const orderInsertDetails = await client.query(`
+        INSERT INTO orders (order_date, user_id, total_price_pennies)
+        VALUES ($1, $2, $3) 
+        RETURNING id;`, [today, req.user.id, total_price_pennies]);
+        const orderId = orderInsertDetails.rows[0].id;
+
+        await Promise.all(cart.map(cartItem => {
+            const insertLineItemText = `INSERT INTO line_items (quantity, order_id, product_id) VALUES ($1, $2, $3);`;  
+            const insertLineItemValues = [cartItem.quantity, orderId, cartItem.id];
+            return client.query(insertLineItemText, insertLineItemValues);
+        }));
+
+        await client.query('COMMIT');
+        res.sendStatus(201);
+    } catch (err) {
+        await client.query('ROLLBACK')
+        console.log('Error POST /api/orders', err);
+        res.sendStatus(500);
+    } finally {
+        client.release();
+    }
 })
 
 router.post('/cart', (req, res) => {

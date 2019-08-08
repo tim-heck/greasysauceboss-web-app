@@ -8,7 +8,7 @@ export default function* showsSaga() {
     yield takeEvery('DELETE_SHOW', deleteShow);
 }
 
-function* fetchShows(action) {
+function* fetchShows() {
     console.log('in fetchShows');
     try {
         const response = yield axios.get('/api/shows');
@@ -24,7 +24,7 @@ function* addShow(action) {
         yield axios.post('/api/shows', action.payload);
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
-        console.log('error with getting shows', err);
+        console.log('error with adding shows', err);
     }
 }
 
@@ -35,7 +35,7 @@ function* updateShow(action) {
         yield axios.put(`/api/shows/${action.payload.id}`, action.payload);
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
-        console.log('error with getting shows', err);
+        console.log('error with updating shows', err);
     }
 }
 
@@ -45,6 +45,6 @@ function* deleteShow(action) {
         yield axios.delete(`/api/shows/${action.payload.id}`);
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
-        console.log('error with getting shows', err);
+        console.log('error with deleting shows', err);
     }
 }
