@@ -43,6 +43,7 @@ const Nav = (props) => (
         <AdminNav /> 
       </>
     )}
+    <div className="nav-placeholder"></div>
   </>
 );
 

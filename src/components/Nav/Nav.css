@@ -9,6 +9,10 @@
 .nav {
   overflow: hidden;
   background-color: #1f2833;
+  z-index: 200;
+  position: fixed;
+  width: 100%;
+  top: 0;
 }
 
 .nav-link {
@@ -48,4 +52,8 @@ the nav bar look like another link */
   height: 43px;
   padding: 12px;
   position: absolute
+}
+
+.nav-placeholder {
+  height: 116px;
 }

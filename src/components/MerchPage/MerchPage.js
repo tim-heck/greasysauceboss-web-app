@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CheckoutBtn from '../CheckoutBtn/CheckoutBtn';
 
 class MerchPage extends Component {
 
@@ -45,9 +44,6 @@ class MerchPage extends Component {
                             <p>{item.description}</p>
                             <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
                             <button onClick={() => this.addToCart(item)}>Add to Cart</button>
-                            {/* <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
-                                Add to Cart
-                            </Button> */}
                         </li>
                     )}
                 </ul>
