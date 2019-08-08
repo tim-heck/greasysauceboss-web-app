@@ -19,10 +19,10 @@ function* fetchOrders() {
 }
 
 function* fetchUsersOrder(action) {
-    console.log('in fetchOrders');
+    console.log('in fetchUsersOrders');
     try {
         const response = yield axios.get(`/api/orders/${action.payload.id}`);
-        yield put({ type: 'SET_USER_ORDER', payload: response.data });
+        yield put({ type: 'SET_USERS_ORDERS', payload: response.data });
     } catch (err) {
         console.log('error with getting specific order', err);
     }
@@ -33,8 +33,10 @@ function* addOrder(action) {
     try {
         yield axios.post('/api/orders', action.payload);
         console.log('order added', action.payload);
-        yield put({ type: 'FETCH_ORDERS' });
-        // yield put({ type: 'ADD_CART', payload: action.payload.cart })
+        // yield put({ type: 'FETCH_ORDERS' });
+        // yield action.payload.cart.map(item => {
+        //     put({ type: 'ADD_CART', payload: item })
+        // })
     } catch (err) {
         console.log('error with adding orders', err);
     }

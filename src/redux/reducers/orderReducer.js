@@ -9,6 +9,15 @@ const order = (state = [], action) => {
     }
 }
 
+const userOrders = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_USERS_ORDERS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const specificOrder = (state = {}, action) => {
     switch (action.type) {
         case 'SET_USER_ORDERs':
@@ -20,4 +29,5 @@ const specificOrder = (state = {}, action) => {
 
 export default combineReducers({
     order,
+    userOrders,
 });

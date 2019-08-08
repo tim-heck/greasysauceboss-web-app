@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+// const axios = require('axios');
 
 router.get('/', (req, res) => {
     const sqlText = `SELECT * FROM orders;`;
@@ -37,7 +38,18 @@ router.post('/', (req, res) => {
     `;
     const values = [today, req.user.id, req.body.total_price_pennies];
     pool.query(sqlText, values).then(result => {
-        console.log(result);
+        // console.log(result);
+        // console.log('before get in post');
+        // router.get('/', (req, res) => {
+        //     console.log('in get in post');
+        //     const sqlText = `SELECT id FROM orders;`;
+        //     pool.query(sqlText).then(result => {
+        //         console.log(result.rows)
+        //         // res.send(result.rows[result.rows.length-1])
+        //     }).catch(err => {
+        //         console.log(err);
+        //     })
+        // })
         res.sendStatus(201);
     }).catch(err => {
         console.log(err);

@@ -38,7 +38,6 @@ router.post('/', (req, res) => {
     `;
     const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(201);
     }).catch(err => {
         console.log(err);
@@ -56,7 +55,6 @@ router.put('/:id', (req, res) => {
     `;
     const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url, req.params.id];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(200);
     }).catch(err => {
         console.log(err);
@@ -73,7 +71,6 @@ router.delete('/:id', (req, res) => {
     `;
     const values = [req.params.id];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(200);
     }).catch(err => {
         console.log(err);
