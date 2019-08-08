@@ -2,9 +2,19 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
 
+router.get('/', (req, res) => {
+    const sqlText = `SELECT * FROM orders;`;
+    pool.query(sqlText).then(result => {
+        res.send(result.rows);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
 router.get('/:user_id', (req, res) => {
     const sqlText = `SELECT * FROM orders WHERE user_id=$1;`;
-    pool.query(sqlText, [req.params.user_id]).then(result => {
+    pool.query(sqlText, [req.user.id]).then(result => {
         res.send(result.rows);
     }).catch(err => {
         console.log(err);

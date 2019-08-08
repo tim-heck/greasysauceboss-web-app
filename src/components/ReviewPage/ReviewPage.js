@@ -3,13 +3,30 @@ import { connect } from 'react-redux';
 
 class ReviewPage extends Component {
 
+    componentDidMount() {
+        this.props.dispatch({type: 'FETCH_ORDERS'})
+    }
+
     completeOrder = () => {
         let totalPricePennies = 0;
         let cart = this.props.reduxStore.cart;
         for (let i = 0; i < cart.length; i++) {
             totalPricePennies += cart[i].price_pennies * cart[i].quantity;
         }
-        this.props.dispatch({type: 'COMPLETE_ORDER', payload: totalPricePennies})
+        this.props.dispatch({
+            type: 'ADD_ORDER', 
+            payload: {
+                total_price_pennies: totalPricePennies,
+                cart: this.props.reduxStore.cart
+            }
+        })
+        // console.log('order id:', this.props.reduxStore.order.specificOrder)
+        // this.props.reduxStore.cart.map(item => {
+        //     this.props.dispatch({
+        //         type: 'ADD_CART',
+        //         payload: { quantity: item.quantity, order_id: this.props.reduxStore.order.specificOrder.id, product_id: item.id}
+        //     })
+        // })  
     }
 
     checkForProducts = () => {

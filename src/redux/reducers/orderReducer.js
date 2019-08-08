@@ -1,13 +1,23 @@
-const order = (state = {total_price_pennies: 0}, action) => {
+import { combineReducers } from 'redux';
+
+const order = (state = [], action) => {
     switch (action.type) {
-        case 'COMPLETE_ORDER':
-            state.total_price_pennies = action.payload;
-            console.log(action.payload)
-            console.log(state.total_price_pennies)
-            return state;
+        case 'SET_ORDERS':
+            return action.payload;
         default:
             return state;
     }
 }
 
-export default order;
+const specificOrder = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_USER_ORDERs':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    order,
+});
