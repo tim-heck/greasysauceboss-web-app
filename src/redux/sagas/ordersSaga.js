@@ -32,7 +32,7 @@ function* addOrder(action) {
     console.log('in addOrder', action.payload);
     try {
         yield axios.post('/api/orders', action.payload);
-        yield put({ type: 'SET_ORDERS', payload: response.data });
+        yield put({ type: 'FETCH_ORDERS'});
     } catch (err) {
         console.log('error with adding orders', err);
     }
