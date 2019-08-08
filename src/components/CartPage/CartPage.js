@@ -41,14 +41,17 @@ class CartPage extends Component {
         })
     }
 
-    reviewOrder = () => {
+    checkForProducts = () => {
         if (this.props.reduxStore.cart.length > 0) {
             return (
                 <button onClick={this.goToReview}>Review Order</button>
             );
         } else {
             return (
-                <button onClick={this.goToReview} disabled>Review Order</button>
+                <>
+                    <h3>Your cart is empty! Grease it up with some merch!</h3>
+                    <button onClick={this.goToReview} disabled>Review Order</button>
+                </>
             );
         }
     }
@@ -84,7 +87,7 @@ class CartPage extends Component {
                 </ul>
                 {/* {this.checkSession()} */}
                 {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
-                {this.reviewOrder()}
+                {this.checkForProducts()}
             </>
         );
     }
