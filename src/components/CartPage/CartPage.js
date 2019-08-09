@@ -31,14 +31,12 @@ class CartPage extends Component {
     //     }
     // }
 
-    state = {
-        quantity: 0
-    }
+    // state = {
+    //     quantity: 1
+    // }
 
-    handleChange = (event) => {
-        this.setState({
-            quantity: event.target.value
-        })
+    handleChange = (item) => {
+        
     }
 
     reviewOrder = () => {
@@ -58,28 +56,15 @@ class CartPage extends Component {
     }
 
     removeCartItem = (product) => {
-        console.log(product)
         this.props.dispatch({ type: 'REMOVE_ITEM', payload: product });
     }
 
     decrementQuantity = (product) => {
-        // this.setState({
-        //     quantity: product.quantity
-        // });
         this.props.dispatch({ type: 'DECREMENT_QUANTITY', payload: product });
-        this.setState({
-            quantity: --this.state.quantity
-        });
     }
 
     incrementQuantity = (product) => {
-        // this.setState({
-        //     quantity: product.quantity
-        // });
         this.props.dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
-        this.setState({
-            quantity: ++this.state.quantity
-        });
     }
 
     render() {
@@ -95,7 +80,7 @@ class CartPage extends Component {
                             <h4>{item.price_pennies}</h4>
                             <div>
                                 <button onClick={() => this.decrementQuantity(item)}>-</button>
-                                <input type="number" onChange={this.handleChange}/>
+                                <input type="number" value={item.quantity} onChange={() => this.handleChange(item)} readOnly/>
                                 <button onClick={() => this.incrementQuantity(item)}>+</button>
                             </div>
                             <button onClick={() => this.removeCartItem(item)}>Remove</button>

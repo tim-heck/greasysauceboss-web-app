@@ -36,21 +36,27 @@ const cart = (state = [], action) => {
             state = action.payload;
             return state;
         case 'DECREMENT_QUANTITY':
-            console.log(state);
+            let minusQuantity = [];
             for (let i = 0; i < state.length; i++) {
+                minusQuantity.push(state[i]);
                 if (state[i].id === action.payload.id) {
-                    state[i].quantity -= 1;
+                    if (minusQuantity[i].quantity < 2) {
+                        minusQuantity[i].quantity = 1;
+                    } else {
+                        minusQuantity[i].quantity -= 1;
+                    }
                 }
             }
-            return state;
+            return minusQuantity;
         case 'INCREMENT_QUANTITY':
-            console.log(state);
+            let plusQuantity = [];
             for (let i = 0; i < state.length; i++) {
+                plusQuantity.push(state[i]);
                 if (state[i].id === action.payload.id) {
-                    state[i].quantity += 1;
+                    plusQuantity[i].quantity += 1;
                 }
             }
-            return state;
+            return plusQuantity;
         default:
             return state;
     }
