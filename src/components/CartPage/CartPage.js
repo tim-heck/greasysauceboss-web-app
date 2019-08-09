@@ -64,6 +64,10 @@ class CartPage extends Component {
         this.props.dispatch({ type: 'REMOVE_ITEM', payload: product });
     }
 
+    clearCart = () => {
+        this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
+    }
+
     render() {
         return (
             <>
@@ -87,6 +91,7 @@ class CartPage extends Component {
                 {/* {this.checkSession()} */}
                 {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
                 {this.checkForProducts()}
+                <button onClick={this.clearCart}>Clear Entire Cart</button>
             </>
         );
     }

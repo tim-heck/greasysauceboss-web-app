@@ -11,18 +11,11 @@ class MerchPage extends Component {
         this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
     }
 
+    // FOR STRIPE -> STRETCH GOAL
     // goToCheckout = () => {
-    //     // FOR STRIPE -> STRETCH GOAL
     //     // this.props.dispatch({ type: 'CREATE_SESSION', payload: this.state.cart });
     //     this.props.dispatch({ type: 'ADD_TO_CART', payload: this.state.cart }); // may not need
     //     this.props.history.push('/checkout');
-    // }
-
-    // clearCart = () => {
-    //     this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
-    //     this.setState({
-    //         cart: []
-    //     })
     // }
 
     viewProduct = (product) => {
