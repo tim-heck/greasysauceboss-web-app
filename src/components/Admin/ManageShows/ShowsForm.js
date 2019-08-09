@@ -77,6 +77,16 @@ class ShowsForm extends Component {
         }
     }
 
+    cancel = () => {
+        this.setState({
+            date: '',
+            location: '',
+            ticket: false,
+            ticket_url: ''
+        })
+        this.props.history.push('/manage-shows');
+    }
+
     render() {
         return (
             <>
@@ -92,6 +102,7 @@ class ShowsForm extends Component {
                     <label>Tickets URL:</label>
                     <input type="text" value={this.state.ticket_url} onChange={(event) => this.handleChangeFor(event, 'ticket_url')}/>
                     {this.checkEditMode()}
+                    <button onClick={this.cancel}>Cancel</button>
                 </form>
             </>
         );

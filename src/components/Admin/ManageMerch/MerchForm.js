@@ -53,6 +53,16 @@ class MerchForm extends Component {
         }
     }
 
+    cancel = () => {
+        this.setState({
+            title: '',
+            description: '',
+            price_pennies: 0,
+            image_url: ''
+        })
+        this.props.history.push('/manage-merch');
+    }
+
     render() {
         return (
             <>
@@ -69,6 +79,7 @@ class MerchForm extends Component {
                     <label>Local Image URL:</label>
                     <input type="text" value={this.state.image_url} onChange={(event) => this.handleChangeFor(event, 'image_url')} required />
                     {this.checkEditMode()}
+                    <button onClick={this.cancel}>Cancel</button>
                 </form>
             </>
         );
