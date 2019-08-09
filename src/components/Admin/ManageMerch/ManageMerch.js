@@ -16,7 +16,7 @@ class ManageMerch extends Component {
             this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: true } });
             this.props.history.push('/merch-form');
         } else {
-            this.props.dispatch({ type: 'DELETE_SHOW', payload: merchToModify })
+            this.props.dispatch({ type: 'DELETE_PRODUCT', payload: merchToModify })
         }
     }
 
