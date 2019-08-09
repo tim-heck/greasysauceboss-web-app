@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const merchRouter = require('./routes/merch.router');
 const showsRouter = require('./routes/shows.router');
 const ordersRouter = require('./routes/orders.router');
+const awsRouter = require('./routes/aws.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/merch', merchRouter);
 app.use('/api/shows', showsRouter);
 app.use('/api/orders', ordersRouter);
+app.use('/api/merch-upload', awsRouter);
 
 // Serve static files
 app.use(express.static('build'));
