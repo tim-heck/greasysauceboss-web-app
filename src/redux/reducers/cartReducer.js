@@ -35,6 +35,22 @@ const cart = (state = [], action) => {
             // console.log('clear cart:', action.payload);
             state = action.payload;
             return state;
+        case 'DECREMENT_QUANTITY':
+            console.log(state);
+            for (let i = 0; i < state.length; i++) {
+                if (state[i].id === action.payload.id) {
+                    state[i].quantity -= 1;
+                }
+            }
+            return state;
+        case 'INCREMENT_QUANTITY':
+            console.log(state);
+            for (let i = 0; i < state.length; i++) {
+                if (state[i].id === action.payload.id) {
+                    state[i].quantity += 1;
+                }
+            }
+            return state;
         default:
             return state;
     }
