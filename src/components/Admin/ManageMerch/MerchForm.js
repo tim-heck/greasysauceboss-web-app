@@ -70,7 +70,6 @@ class MerchForm extends Component {
                     <input type="text" value={this.state.image_url} onChange={(event) => this.handleChangeFor(event, 'image_url')} required />
                     {this.checkEditMode()}
                 </form>
-                {JSON.stringify(this.props.reduxStore.editMode)}
             </>
         );
     }
