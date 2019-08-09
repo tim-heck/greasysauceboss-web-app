@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CheckoutBtn from '../CheckoutBtn/CheckoutBtn';
 
 class CartPage extends Component {
 
@@ -39,14 +38,17 @@ class CartPage extends Component {
         
     }
 
-    reviewOrder = () => {
+    checkForProducts = () => {
         if (this.props.reduxStore.cart.length > 0) {
             return (
                 <button onClick={this.goToReview}>Review Order</button>
             );
         } else {
             return (
-                <button onClick={this.goToReview} disabled>Review Order</button>
+                <>
+                    <h3>Your cart is empty! Grease it up with some merch!</h3>
+                    <button onClick={this.goToReview} disabled>Review Order</button>
+                </>
             );
         }
     }
@@ -65,6 +67,10 @@ class CartPage extends Component {
 
     incrementQuantity = (product) => {
         this.props.dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
+    }
+
+    clearCart = () => {
+        this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
     }
 
     render() {
@@ -89,7 +95,8 @@ class CartPage extends Component {
                 </ul>
                 {/* {this.checkSession()} */}
                 {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
-                {this.reviewOrder()}
+                {this.checkForProducts()}
+                <button onClick={this.clearCart}>Clear Entire Cart</button>
             </>
         );
     }

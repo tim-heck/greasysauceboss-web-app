@@ -15,9 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import './App.css';
 
-// import AboutPage from '../AboutPage/AboutPage';
-// import UserPage from '../UserPage/UserPage';
-// import InfoPage from '../InfoPage/InfoPage';
 import HomePage from '../HomePage/HomePage';
 import BandPage from '../BandPage/BandPage';
 import ShowsPage from '../ShowsPage/ShowsPage';
@@ -29,11 +26,13 @@ import MerchForm from '../Admin/ManageMerch/MerchForm';
 import ShowsForm from '../Admin/ManageShows/ShowsForm';
 import MerchPage from '../MerchPage/MerchPage';
 import ReviewPage from '../ReviewPage/ReviewPage';
+import MerchItemPage from '../MerchPage/MerchItemPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
+  // componentDidMount () {
+  //   this.props.dispatch({type: 'FETCH_USER'})
+  // }
 
   render() {
     return (
@@ -63,6 +62,11 @@ class App extends Component {
               path="/merch"
               component={MerchPage}
             />
+            <ProtectedRoute
+              exact
+              path="/merch/:id/:title"
+              component={MerchItemPage}
+            />
             <Route
               exact
               path="/band"
@@ -84,6 +88,11 @@ class App extends Component {
               exact
               path="/review-order"
               component={ReviewPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/profile"
+              component={ProfilePage}
             />
             <ProtectedRoute
               exact
