@@ -41,6 +41,7 @@ const styles = theme => ({
     actions: {
         display: "block",
         textAlign: "center",
+        padding: 0,
     },
     typography: {
         fontFamily: "Montserrat, sans-serif",
@@ -101,12 +102,16 @@ class MerchPage extends Component {
                                     <Typography className={classes.typography}>
                                         {item.title}
                                     </Typography>
+                                    <br/>
+                                    <Typography className={classes.typography}>
+                                        ${(item.price_pennies / 100).toFixed(2)}
+                                    </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions className={classes.actions}>
                                 <Button variant="contained" className={[classes.button, classes.typography]} onClick={() => this.addToCart(item)}>
                                     Add to Cart
-                            </Button>
+                                </Button>
                             </CardActions>
                         </Card>
                     )}
