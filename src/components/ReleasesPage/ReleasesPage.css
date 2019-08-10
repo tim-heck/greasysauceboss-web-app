@@ -1,0 +1,23 @@
+.releases-page {
+    max-width: 650px;
+}
+
+/* .spotify-album:first-child {
+    margin-right: 20px;
+} */
+
+.spotify-album-ease {
+    margin-right: 22px;
+    background: url('./tail-spin-1.svg');
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    background-position: center;
+}
+
+.spotify-album-cuoa12 {
+    margin-left: 22px;
+    background: url('./tail-spin-1.svg');
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+    background-position: center;
+}
