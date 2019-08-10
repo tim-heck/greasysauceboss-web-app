@@ -1,5 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './MerchPage.css';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+        backgroundColor: "#1f2833",
+        color: "#fff",
+        padding: "10px 25px",
+        letterSpacing: "1.5px",
+        transition: ".3s",
+        '&:hover': {
+            backgroundColor: "#fff",
+            color: "#1f2833",
+            boxShadow: "0px 0px 0px 3px #66fcf1",
+        }
+    },
+    card: {
+        maxWidth: 345,
+        display: "inline-block",
+        width: "300px",
+        boxShadow: "none",
+        borderRadius: 0,
+        margin: "0 5px 20px",
+        '&:first-child': {
+            backgroundColor: "#000"
+        }
+    },
+    media: {
+        height: 300,
+    },
+    actions: {
+        display: "block",
+        textAlign: "center",
+    },
+    typography: {
+        fontFamily: "Montserrat, sans-serif",
+        fontWeight: "700",
+    }
+});
 
 class MerchPage extends Component {
 
@@ -19,27 +66,51 @@ class MerchPage extends Component {
     // }
 
     viewProduct = (product) => {
-        this.props.dispatch({type: 'VIEW_PRODUCT', payload: product.id});
+        this.props.dispatch({ type: 'VIEW_PRODUCT', payload: product.id });
         let urlTitle = product.title.toLowerCase().replace(/ /g, '-');
         this.props.history.push(`/merch/${product.id}/${urlTitle}`);
     }
 
     render() {
-        console.log('Cart',this.props.reduxStore.cart);
+        const { classes } = this.props;
         return (
             <>
-                <h2>Merch</h2>
-                <ul>
+                <div className="container merch-list">
+                    <h2 className="page-title">Merch</h2>
+                    {/* <ul>
+                        {this.props.reduxStore.merch.merchReducer.map(item =>
+                            <li key={item.id}>
+                                <img height="150" src={item.image_url} alt="" onClick={() => this.viewProduct(item)} />
+                                <h2>{item.title}</h2>
+                                <p>{item.description}</p>
+                                <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
+                                <button onClick={() => this.addToCart(item)}>Add to Cart</button>
+                            </li>
+                        )}
+                    </ul> */}
                     {this.props.reduxStore.merch.merchReducer.map(item =>
-                        <li key={item.id}>
-                            <img height="150" src={item.image_url} alt="" onClick={() => this.viewProduct(item)}/>
-                            <h2>{item.title}</h2>
-                            <p>{item.description}</p>
-                            <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
-                            <button onClick={() => this.addToCart(item)}>Add to Cart</button>
-                        </li>
+                        <Card className={classes.card} key={item.id}>
+                            <CardActionArea>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={item.image_url}
+                                    title={item.title}
+                                    onClick={() => this.viewProduct(item)}
+                                />
+                                <CardContent>
+                                    <Typography className={classes.typography}>
+                                        {item.title}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions className={classes.actions}>
+                                <Button variant="contained" className={[classes.button, classes.typography]} onClick={() => this.addToCart(item)}>
+                                    Add to Cart
+                            </Button>
+                            </CardActions>
+                        </Card>
                     )}
-                </ul>
+                </div>
             </>
         );
     }
@@ -49,4 +120,4 @@ const stateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(stateToProps)(MerchPage);
+export default withStyles(styles)(connect(stateToProps)(MerchPage));

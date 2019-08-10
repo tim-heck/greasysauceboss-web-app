@@ -19,10 +19,7 @@ const styles = theme => ({
             color: "#1f2833",
             boxShadow: "0px 0px 0px 3px #66fcf1",
         }
-    },
-    input: {
-        display: 'none',
-    },
+    }
 });
 
 class ShowsPage extends Component {
@@ -46,7 +43,7 @@ class ShowsPage extends Component {
     render() {
         return (
             <>
-                <div className="shows-list">
+                <div className="container shows-list">
                     <h2 className="page-title">Upcoming Shows</h2>
                     <ul>
                         {this.props.reduxStore.shows.showsReducer.map(item =>
