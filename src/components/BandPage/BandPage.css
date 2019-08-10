@@ -12,9 +12,10 @@
 }
 
 .band-page ul .band-member  {
-    display: inline-table;
+    display: inline-block;
     margin: 0 20px;
     text-align: center;
+    vertical-align: top;
 }
 
 .band-member p {
