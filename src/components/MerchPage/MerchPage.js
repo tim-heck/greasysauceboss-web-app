@@ -80,17 +80,6 @@ class MerchPage extends Component {
             <>
                 <div className="container merch-list">
                     <h2 className="page-title">Merch</h2>
-                    {/* <ul>
-                        {this.props.reduxStore.merch.merchReducer.map(item =>
-                            <li key={item.id}>
-                                <img height="150" src={item.image_url} alt="" onClick={() => this.viewProduct(item)} />
-                                <h2>{item.title}</h2>
-                                <p>{item.description}</p>
-                                <h4>{(item.price_pennies / 100).toFixed(2)}</h4>
-                                <button onClick={() => this.addToCart(item)}>Add to Cart</button>
-                            </li>
-                        )}
-                    </ul> */}
                     {this.props.reduxStore.merch.merchReducer.map(item =>
                         <Card className={classes.card} key={item.id}>
                             <CardActionArea>
