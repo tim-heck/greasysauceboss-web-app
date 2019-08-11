@@ -23,9 +23,8 @@ class HomePage extends Component {
                             <iframe
                                 width="560" height="315"
                                 src="https://www.youtube.com/embed/Rl66Yq-rUHA"
-                                frameBorder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen title="Lastest Video">
+                                title="Lastest Video">
                             </iframe>
                         </div>
                     </div>

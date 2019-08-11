@@ -18,6 +18,8 @@ const styles = theme => ({
         padding: "10px 25px",
         letterSpacing: "1.5px",
         transition: ".3s",
+        fontFamily: "Montserrat, sans-serif",
+        fontWeight: "700",
         '&:hover': {
             backgroundColor: "#fff",
             color: "#1f2833",
@@ -109,7 +111,7 @@ class MerchPage extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions className={classes.actions}>
-                                <Button variant="contained" className={[classes.button, classes.typography]} onClick={() => this.addToCart(item)}>
+                                <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
                                     Add to Cart
                                 </Button>
                             </CardActions>
