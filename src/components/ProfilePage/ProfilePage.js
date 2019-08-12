@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'moment';
 import { connect } from 'react-redux';
 import './ProfilePage.css';
 import { withStyles } from '@material-ui/core/styles';
@@ -89,7 +90,7 @@ class ProfilePage extends Component {
                             <CardContent>
                                 <ul className={classes.merchInfoUl}>
                                     <li>Order #: {item.order_id}</li>
-                                    <li>Order Date: {item.order_date}</li>
+                                    <li>Order Date: {Moment(item.order_date).format('L')}</li>
                                 </ul>
                                 <div className={classes.merchInfo}>
                                     <h4>Products Ordered:</h4>
