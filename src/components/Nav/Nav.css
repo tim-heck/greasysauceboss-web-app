@@ -57,3 +57,13 @@ the nav bar look like another link */
 .nav-placeholder {
   height: 116px;
 }
+
+.active {
+  color: #66fcf1;
+  border-bottom: 5px solid #66fcf1;
+}
+
+.active:hover {
+  color: #66fcf1;
+  border-bottom: 5px solid #66fcf1;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
@@ -12,27 +12,27 @@ const Nav = (props) => (
         <img className="logo" src="images/greasysauceboss-logo-w.svg" alt="GreasySauceBoss" />
       </Link>
       <div className="nav-right">
-        <Link className="nav-link" to="/news">
+        <NavLink className="nav-link" to="/news">
           News
-        </Link>
-        <Link className="nav-link" to="/shows">
+        </NavLink>
+        <NavLink className="nav-link" to="/shows">
           Shows
-        </Link>
-        <Link className="nav-link" to="/merch">
+        </NavLink>
+        <NavLink className="nav-link" to="/merch">
           Merch
-        </Link>
-        <Link className="nav-link" to="/band">
+        </NavLink>
+        <NavLink className="nav-link" to="/band">
           Band
-        </Link>
-        <Link className="nav-link" to="/releases">
+        </NavLink>
+        <NavLink className="nav-link" to="/releases">
           Releases
-        </Link>
-        <Link className="nav-link" to="/profile">
+        </NavLink>
+        <NavLink className="nav-link" to="/profile">
           Profile
-        </Link>
-        <Link className="nav-link" to="/cart">
+        </NavLink>
+        <NavLink className="nav-link" to="/cart">
           Your Cart
-        </Link>
+        </NavLink>
         {/* Show the link to the info page and the logout button if the user is logged in */}
         {props.user.id && (
           <>

@@ -1,0 +1,12 @@
+.merch-list {
+    max-width: 1250px;
+}
+
+.merch-list ul {
+    text-align: left;
+}
+
+.merch-list ul li {
+    display: inline-block;
+    
+}
