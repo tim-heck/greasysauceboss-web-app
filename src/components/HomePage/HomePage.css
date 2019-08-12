@@ -4,11 +4,10 @@
 
 .flex-container-home {
     width: 100%;
-    /* display: none; */
     flex-direction: column;
     flex-flow: column wrap;
     flex: 1;
-    /* padding-top: 120px; */
+    margin: 20px 0 0 0;
 }
 
 .flex-row-home {
