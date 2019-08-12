@@ -67,3 +67,8 @@ the nav bar look like another link */
   color: #66fcf1;
   border-bottom: 5px solid #66fcf1;
 }
+
+.admin-nav-link.active {
+  color: #1f2833;
+  border-bottom: 5px solid #1f2833;
+}

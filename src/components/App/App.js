@@ -25,7 +25,7 @@ import ManageShows from '../Admin/ManageShows/ManageShows';
 import MerchForm from '../Admin/ManageMerch/MerchForm';
 import ShowsForm from '../Admin/ManageShows/ShowsForm';
 import MerchPage from '../MerchPage/MerchPage';
-import ReviewPage from '../ReviewPage/ReviewPage';
+// import ReviewPage from '../ReviewPage/ReviewPage';
 import MerchItemPage from '../MerchPage/MerchItemPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 

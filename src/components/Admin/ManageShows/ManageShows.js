@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'moment';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -58,7 +59,7 @@ class ManageShows extends Component {
                     <ul>
                         {this.props.reduxStore.shows.showsReducer.map(item =>
                             <li key={item.id}>
-                                <h3 className="show-item show-date">{item.show_date}</h3>
+                                <h3 className="show-item show-date">{Moment(item.show_date).format('L')}</h3>
                                 <div className="show-item location">{item.location}</div>
                                 <div className="show-item ticket">{this.checkTickets(item)}</div>
                                 <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
