@@ -84,11 +84,12 @@ class App extends Component {
               path="/cart"
               component={CartPage}
             />
-            <ProtectedRoute
+            {/* STRETCH GOAL - Review page would be added with STRIPE */}
+            {/* <ProtectedRoute
               exact
               path="/review-order"
               component={ReviewPage}
-            />
+            /> */}
             <ProtectedRoute
               exact
               path="/profile"

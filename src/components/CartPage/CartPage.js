@@ -120,10 +120,15 @@ class CartPage extends Component {
                             onClick={this.clearCart}>
                             Clear Entire Cart
                         </Button>
-                        <Button
+                        {/* <Button
                             variant="contained" className={classes.button}
                             onClick={this.goToReview}>
                             Review Order
+                        </Button> */}
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.payNow}>
+                            Pay Now
                         </Button>
                     </div>
                 </>
@@ -138,10 +143,15 @@ class CartPage extends Component {
                             onClick={this.clearCart} disabled>
                             Clear Entire Cart
                         </Button>
-                        <Button
+                        {/* <Button
                             variant="contained" className={classes.button}
                             onClick={this.goToReview} disabled>
                             Review Order
+                        </Button> */}
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.payNow} disabled>
+                            Pay Now
                         </Button>
                     </div>
                 </>
@@ -149,8 +159,19 @@ class CartPage extends Component {
         }
     }
 
-    goToReview = () => {
-        this.props.history.push('/review-order');
+    // goToReview = () => {
+    //     this.props.history.push('/review-order');
+    // }
+
+    payNow = () => {
+        let totalPricePennies = this.calcTotal();
+        this.props.dispatch({
+            type: 'ADD_ORDER',
+            payload: {
+                total_price_pennies: totalPricePennies,
+                cart: this.props.reduxStore.cart
+            }
+        })
     }
 
     removeCartItem = (product) => {
@@ -170,11 +191,17 @@ class CartPage extends Component {
     }
 
     calcTotal = () => {
-        const { classes } = this.props;
         let totalPrice = 0;
         this.props.reduxStore.cart.map(item => 
-            totalPrice += item.price_pennies
+            totalPrice += (item.price_pennies * item.quantity)
         )
+        return totalPrice;
+    }
+
+    showTotal = () => {
+        const { classes } = this.props;
+        let totalPrice = this.calcTotal();
+        console.log(totalPrice);
         return (
             <div className={classes.totalPrice}>Total: ${(totalPrice / 100).toFixed(2)}</div>
         );
@@ -219,7 +246,7 @@ class CartPage extends Component {
                             </Card>
                         )}
                     </ul>
-                    {this.calcTotal()}
+                    {this.showTotal()}
                     
                     {/* {this.checkSession()} */}
                     {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}

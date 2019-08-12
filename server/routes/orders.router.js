@@ -38,6 +38,7 @@ router.post('/', async (req, res) => {
             total_price_pennies,
             cart
         } = req.body;
+        // console.log('req.body', req.body);
         await client.query('BEGIN')
         // Grabs date snippet from: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
         let today = new Date();
@@ -47,10 +48,13 @@ router.post('/', async (req, res) => {
 
         today = mm + '/' + dd + '/' + yyyy;
         // end date snippet
+        // console.log('req.user', req.user);
+        // console.log('req.user.id:',req.user.id);
         const orderInsertDetails = await client.query(`
         INSERT INTO orders (order_date, user_id, total_price_pennies)
         VALUES ($1, $2, $3) 
         RETURNING id;`, [today, req.user.id, total_price_pennies]);
+        console.log(orderInsertDetails.rows[0].id);
         const orderId = orderInsertDetails.rows[0].id;
 
         await Promise.all(cart.map(cartItem => {
@@ -77,7 +81,6 @@ router.post('/cart', (req, res) => {
     `;
     const values = [req.body.quantity, req.order_id, req.body.product_id];
     pool.query(sqlText, values).then(result => {
-        console.log(result);
         res.sendStatus(201);
     }).catch(err => {
         console.log(err);
