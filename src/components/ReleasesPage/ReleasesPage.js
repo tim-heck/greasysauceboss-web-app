@@ -32,13 +32,13 @@ class ReleasesPage extends Component {
                     <h2 className="page-title">Releases</h2>
                     <iframe
                         src="https://open.spotify.com/embed/album/521URcTwYdxlTn44JEUwGR"
-                        width="300" height="380" frameborder="0" allowtransparency="true"
+                        width="300" height="380" allowtransparency="true"
                         allow="encrypted-media" title="Ease Album" 
                         className="spotify-album-ease">
                     </iframe>
                     <iframe
                         src="https://open.spotify.com/embed/album/2B0eKWdm2criYHpZSY3UeA"
-                        width="300" height="380" frameborder="0" allowtransparency="true"
+                        width="300" height="380" allowtransparency="true"
                         allow="encrypted-media" title="Clean Up on Aisle 12 Album"
                         className="spotify-album-cuoa12">
                     </iframe>

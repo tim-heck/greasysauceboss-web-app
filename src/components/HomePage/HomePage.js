@@ -5,13 +5,13 @@ import './HomePage.css';
 
 class HomePage extends Component {
 
-    componentDidMount() {
-        document.getElementById('home-page').addEventListener('mousemove', function (event) {
-            let translateX = -((event.pageX - 600) * 0.15);
-            let translateY = -((event.pageY - 600) * 0.15);
-            document.getElementById('block').style.transform = "translate(" + translateX + "px, " + translateY + "px)"
-        })
-    }
+    // componentDidMount() {
+    //     document.getElementById('home-page').addEventListener('mousemove', function (event) {
+    //         let translateX = -((event.pageX - 600) * 0.15);
+    //         let translateY = -((event.pageY - 600) * 0.15);
+    //         document.getElementById('block').style.transform = "translate(" + translateX + "px, " + translateY + "px)"
+    //     })
+    // }
 
     render() {
         return (
