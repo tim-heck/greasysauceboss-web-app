@@ -7,11 +7,13 @@ import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     button: {
-        margin: theme.spacing.unit,
+        fontFamily: "Montserrat, sans-serif",
         backgroundColor: "#1f2833",
+        marginTop: "8px",
         color: "#fff",
         padding: "10px 25px",
         letterSpacing: "1.5px",
+        fontWeight: "700",
         transition: ".3s",
         '&:hover': {
             backgroundColor: "#fff",

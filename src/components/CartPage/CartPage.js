@@ -1,5 +1,85 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './CartPage.css';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+    button: {
+        fontFamily: "Montserrat, sans-serif",
+        backgroundColor: "#1f2833",
+        marginTop: "8px",
+        color: "#fff",
+        padding: "10px 25px",
+        letterSpacing: "1.5px",
+        fontWeight: "700",
+        transition: ".3s",
+        '&:hover': {
+            backgroundColor: "#fff",
+            color: "#1f2833",
+            boxShadow: "0px 0px 0px 3px #66fcf1",
+        }
+    },
+    card: {
+        width: "800px",
+        boxShadow: "none",
+        borderRadius: 0,
+        margin: "0 auto",
+        fontFamily: "Montserrat, sans-serif",
+        fontWeight: "700",
+    },
+    actions: {
+        display: "block",
+        textAlign: "center",
+        padding: 0,
+    },
+    product: {
+        margin: "0 0 20px 0",
+        '& img': {
+            display: "inline-block",
+        },
+        '& .product-details': {
+            display: "inline-block",
+            verticalAlign: "top",
+            paddingLeft: "20px",
+            width: "400px",
+        },
+        '& .product-details:last-child': {
+            width: "150px",
+        },
+        '& div ul': {
+            display: "inline-block",
+            textAlign: "left",
+        },
+        '& div ul li': {
+            marginBottom: "20px"
+        },
+    },
+    merchInfo: {
+        textAlign: "left",
+        margin: "5px 0"
+    },
+    merchInfoUl: {
+        textAlign: "left",
+        margin: "5px 0",
+        '& li': {
+            width: "50%",
+            display: "inline-block"
+        }
+    },
+    btnGroup: {
+        '& button:last-child': {
+            float: "right",
+        }
+    },
+    productQuantity: {
+        '& input': {
+            width: "30px"
+        }
+    }
+});
 
 class CartPage extends Component {
 
@@ -35,19 +115,45 @@ class CartPage extends Component {
     // }
 
     handleChange = (item) => {
-        
+
     }
 
     checkForProducts = () => {
+        const { classes } = this.props;
         if (this.props.reduxStore.cart.length > 0) {
             return (
-                <button onClick={this.goToReview}>Review Order</button>
+                // <button onClick={this.goToReview}>Review Order</button>
+                <>
+                    <div className={classes.btnGroup}>
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.clearCart}>
+                            Clear Entire Cart
+                        </Button>
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.goToReview}>
+                            Review Order
+                        </Button>
+                    </div>
+                </>
             );
         } else {
             return (
                 <>
                     <h3>Your cart is empty! Grease it up with some merch!</h3>
-                    <button onClick={this.goToReview} disabled>Review Order</button>
+                    <div className={classes.btnGroup}>
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.clearCart} disabled>
+                            Clear Entire Cart
+                        </Button>
+                        <Button
+                            variant="contained" className={classes.button}
+                            onClick={this.goToReview} disabled>
+                            Review Order
+                        </Button>
+                    </div>
                 </>
             );
         }
@@ -74,29 +180,62 @@ class CartPage extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <>
-                <h2>Your Cart</h2>
-                <ul>
-                    {this.props.reduxStore.cart.map((item, i) =>
-                        <li key={i}>
-                            <img src={item.image_url} height="150" alt="" />
-                            <h2>{item.title}</h2>
-                            <p>{item.description}</p>
-                            <h4>{item.price_pennies}</h4>
-                            <div>
-                                <button onClick={() => this.decrementQuantity(item)}>-</button>
-                                <input type="number" value={item.quantity} onChange={() => this.handleChange(item)} readOnly/>
-                                <button onClick={() => this.incrementQuantity(item)}>+</button>
-                            </div>
-                            <button onClick={() => this.removeCartItem(item)}>Remove</button>
-                        </li>
-                    )}
-                </ul>
-                {/* {this.checkSession()} */}
-                {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
-                {this.checkForProducts()}
-                <button onClick={this.clearCart}>Clear Entire Cart</button>
+                <div className="container cart-page">
+                    <h2 className="page-title">Your Cart</h2>
+                    <ul>
+                        {this.props.reduxStore.cart.map((item, i) =>
+                            // <li key={i}>
+                            //     <img src={item.image_url} height="150" alt="" />
+                            //     <h2>{item.title}</h2>
+                            //     <p>{item.description}</p>
+                            //     <h4>{item.price_pennies}</h4>
+                            //     <div>
+                            //         <button onClick={() => this.decrementQuantity(item)}>-</button>
+                            //         <input type="number" value={item.quantity} onChange={() => this.handleChange(item)} readOnly />
+                            //         <button onClick={() => this.incrementQuantity(item)}>+</button>
+                            //     </div>
+                            //     <button onClick={() => this.removeCartItem(item)}>Remove</button>
+                            // </li>
+                            <Card className={classes.card} key={i}>
+                                <CardContent>
+                                    <div className={classes.merchInfo}>
+                                        <div className={classes.product}>
+                                            <img height="150" src={item.image_url} alt={item.title} />
+                                            <div className="product-details">
+                                                <ul>
+                                                    <li>{item.title}</li>
+                                                    <li>{item.description}</li>
+                                                    <li>${((item.price_pennies / 100) * item.quantity).toFixed(2)}</li>
+                                                </ul>
+                                            </div>
+                                            <div className="product-details">
+                                                <label>Quantity:</label>
+                                                <div className={classes.productQuantity}>
+                                                    <button onClick={() => this.decrementQuantity(item)}>-</button>
+                                                    <input type="number" value={item.quantity} onChange={() => this.handleChange(item)} readOnly />
+                                                    <button onClick={() => this.incrementQuantity(item)}>+</button>
+                                                </div>
+                                                <Button
+                                                    variant="contained" className={classes.button}
+                                                    onClick={() => this.removeCartItem(item)}>
+                                                    Remove
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className={classes.merchInfo}>Total Order Price: ${(item.total_price_pennies / 100).toFixed(2)}</div> */}
+                                </CardContent>
+                            </Card>
+                        )}
+                    </ul>
+                    {/* {this.checkSession()} */}
+                    {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
+                    {this.checkForProducts()}
+                    {/* <button onClick={this.clearCart}>Clear Entire Cart</button> */}
+                </div>
             </>
         );
     }
@@ -106,4 +245,4 @@ const stateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(stateToProps)(CartPage);
+export default withStyles(styles)(connect(stateToProps)(CartPage));
