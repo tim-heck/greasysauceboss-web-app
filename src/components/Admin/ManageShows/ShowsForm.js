@@ -139,6 +139,16 @@ class ShowsForm extends Component {
         this.props.history.push('/manage-shows');
     }
 
+    cancel = () => {
+        this.setState({
+            date: '',
+            location: '',
+            ticket: false,
+            ticket_url: ''
+        })
+        this.props.history.push('/manage-shows');
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -147,7 +157,6 @@ class ShowsForm extends Component {
                     <h2 className="page-title">Show Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            id="standard-required"
                             label="Show Date"
                             className={classes.textFieldDate}
                             value={this.state.date}
@@ -156,7 +165,6 @@ class ShowsForm extends Component {
                             required
                         />
                         <TextField
-                            id="standard-required"
                             label="Location"
                             className={classes.textFieldLocation}
                             value={this.state.location}
@@ -177,7 +185,6 @@ class ShowsForm extends Component {
                             label="Tickets?"
                         />
                         <TextField
-                            id="standard-name"
                             label="Tickets URL"
                             className={classes.textFieldTicketUrl}
                             value={this.state.ticket_url}

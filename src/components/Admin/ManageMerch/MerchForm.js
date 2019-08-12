@@ -113,6 +113,7 @@ class MerchForm extends Component {
         }
     }
 
+
     back = () => {
         this.props.history.push('/manage-merch');
     }
@@ -139,7 +140,6 @@ class MerchForm extends Component {
                     <h2 className="page-title">Merch Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            id="standard-required"
                             label="Title"
                             className={classes.textFieldTitle}
                             value={this.state.title}
@@ -149,7 +149,6 @@ class MerchForm extends Component {
                         />
                         <br />
                         <TextField
-                            id="standard-required"
                             label="Price (in pennies)"
                             className={classes.textFieldPrice}
                             value={this.state.price_pennies}
@@ -159,7 +158,6 @@ class MerchForm extends Component {
                         />
                         <br />
                         <TextField
-                            id="standard-multiline-flexible"
                             label="Description"
                             multiline
                             rows="6"
@@ -171,7 +169,6 @@ class MerchForm extends Component {
                         />
                         <br/>
                         <TextField
-                            id="standard-name"
                             label="Image URL"
                             className={classes.textFieldImageUrl}
                             value={this.state.image_url}
