@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './MerchItemPage.css';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { notify } from 'react-notify-toast';
 
 const styles = theme => ({
     button: {
@@ -29,7 +30,16 @@ class MerchItemPage extends Component {
     }
 
     addToCart = (product) => {
-        this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+        try {
+            this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+            notify.show(`${product.title} added to the cart!`, "success", 3000);
+        } catch (err) {
+            notify.show(
+                `Something went wrong! That's not greasy... Try again later!`,
+                "error",
+                3000
+            );
+        }
     }
 
     back = () => {

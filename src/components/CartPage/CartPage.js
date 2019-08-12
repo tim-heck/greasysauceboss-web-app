@@ -172,6 +172,7 @@ class CartPage extends Component {
                 cart: this.props.reduxStore.cart
             }
         })
+        this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
     }
 
     removeCartItem = (product) => {

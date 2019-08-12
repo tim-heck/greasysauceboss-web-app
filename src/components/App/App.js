@@ -28,6 +28,7 @@ import MerchPage from '../MerchPage/MerchPage';
 // import ReviewPage from '../ReviewPage/ReviewPage';
 import MerchItemPage from '../MerchPage/MerchItemPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import Notifications from 'react-notify-toast';
 
 class App extends Component {
   // componentDidMount () {
@@ -38,6 +39,7 @@ class App extends Component {
     return (
       <Router>
         <div className="push-footer">
+          <Notifications />
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

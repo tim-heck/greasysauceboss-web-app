@@ -5,7 +5,7 @@ export default function* ordersSaga() {
     yield takeEvery('FETCH_ORDERS', fetchOrders);
     yield takeEvery('FETCH_USERS_ORDERS', fetchUsersOrder);
     yield takeEvery('ADD_ORDER', addOrder);
-    yield takeEvery('ADD_CART', addCart);
+    // yield takeEvery('ADD_CART', addCart);
 }
 
 function* fetchOrders() {
@@ -38,13 +38,11 @@ function* addOrder(action) {
     }
 }
 
-function* addCart(action) {
-    console.log('in addCart');
-    try {
-        yield axios.post('/api/orders/cart', action.payload);
-        console.log('item added', action.payload);
-        // yield put({ type: 'FETCH_ORDERS' });
-    } catch (err) {
-        console.log('error with getting shows', err);
-    }
-}
+// function* addCart(action) {
+//     console.log('in addCart');
+//     try {
+//         yield axios.post('/api/orders/cart', action.payload);
+//     } catch (err) {
+//         console.log('error with getting shows', err);
+//     }
+// }

@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { notify } from 'react-notify-toast';
 
 const styles = theme => ({
     button: {
@@ -58,8 +59,17 @@ class MerchPage extends Component {
     }
 
     addToCart = (product) => {
-        this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
-    }
+        try {
+            this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+            notify.show(`${product.title} added to the cart!`, "success", 3000);
+        } catch (err) {
+            notify.show(
+                `Something went wrong! That's not greasy... Try again later!`, 
+                "error", 
+                3000
+            );
+        }
+     }
 
     // FOR STRIPE -> STRETCH GOAL
     // goToCheckout = () => {
@@ -93,7 +103,7 @@ class MerchPage extends Component {
                                     <Typography className={classes.typography}>
                                         {item.title}
                                     </Typography>
-                                    <br/>
+                                    <br />
                                     <Typography className={classes.typography}>
                                         ${(item.price_pennies / 100).toFixed(2)}
                                     </Typography>

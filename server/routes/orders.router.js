@@ -74,18 +74,18 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.post('/cart', (req, res) => {
-    const sqlText = `
-        INSERT INTO line_items (quantity, order_id, product_id)
-        VALUES ($1, $2, $3);
-    `;
-    const values = [req.body.quantity, req.order_id, req.body.product_id];
-    pool.query(sqlText, values).then(result => {
-        res.sendStatus(201);
-    }).catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-    })
-})
+// router.post('/cart', (req, res) => {
+//     const sqlText = `
+//         INSERT INTO line_items (quantity, order_id, product_id)
+//         VALUES ($1, $2, $3);
+//     `;
+//     const values = [req.body.quantity, req.order_id, req.body.product_id];
+//     pool.query(sqlText, values).then(result => {
+//         res.sendStatus(201);
+//     }).catch(err => {
+//         console.log(err);
+//         res.sendStatus(500);
+//     })
+// })
 
 module.exports = router;
