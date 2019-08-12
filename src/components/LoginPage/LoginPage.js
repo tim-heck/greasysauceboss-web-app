@@ -69,16 +69,13 @@ class LoginPage extends Component {
     const { classes } = this.props;
     return (
       <>
-        {this.props.errors.loginMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
         <form onSubmit={this.login} className={classes.form}>
           <h2 className={classes.title}>Login</h2>
+          {this.props.errors.loginMessage && (
+            <h6 className="alert" role="alert">
+              {this.props.errors.loginMessage}
+            </h6>
+          )}
           <div>
             <TextField
               label="Username"

@@ -29,7 +29,7 @@ function* fetchProducts() {
         const response = yield axios.get('/api/merch');
         yield put({ type: 'SET_PRODUCTS', payload: response.data });
     } catch (err) {
-        notify.show(`There was an error with getting the products: ${err}`, 'error', -1);
+        notify.show(`There was an error with getting the products: ${err}`, 'error', 15000);
         console.log('error with getting products', err);
     }
 }
@@ -40,7 +40,7 @@ function* addProduct(action) {
         notify.show('The product was successfully added!', 'success');
         yield put({ type: 'FETCH_PRODUCTS'});
     } catch (err) {
-        notify.show(`There was an error with adding the product: ${err}`, 'error', -1);
+        notify.show(`There was an error with adding the product: ${err}`, 'error', 15000);
         console.log('error with adding products', err);
     }
 }
@@ -51,7 +51,7 @@ function* updateProduct(action) {
         notify.show('The product was successfully updated!', 'success');
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
-        notify.show(`There was an error with updating the product: ${err}`, 'error', -1);
+        notify.show(`There was an error with updating the product: ${err}`, 'error', 15000);
         console.log('error with updating products', err);
     }
 }
@@ -62,7 +62,7 @@ function* deleteProduct(action) {
         notify.show('The product was successfully deleted!', 'success');
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
-        notify.show(`There was an error with deleting the product: ${err}`, 'error', -1);
+        notify.show(`There was an error with deleting the product: ${err}`, 'error', 15000);
         console.log('error with deleting products', err);
     }
 }
@@ -72,7 +72,7 @@ function* viewProduct(action) {
         const response = yield axios.get(`/api/merch/${action.payload}`);
         yield put({ type: 'SET_VIEW_PRODUCT', payload: response.data[0] });
     } catch (err) {
-        notify.show(`The route to this product does not exist: ${err}. Try again later!`, 'error', -1);
+        notify.show(`The route to this product does not exist: ${err}. Try again later!`, 'error', 15000);
         console.log('error with viewing product', err);
     }
 }
