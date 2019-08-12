@@ -44,10 +44,10 @@ const styles = theme => ({
             display: "inline-block",
             verticalAlign: "top",
             paddingLeft: "20px",
-            width: "400px",
+            width: "425px",
         },
         '& .product-details:last-child': {
-            width: "150px",
+            width: "125px",
         },
         '& div ul': {
             display: "inline-block",
@@ -57,17 +57,12 @@ const styles = theme => ({
             marginBottom: "20px"
         },
     },
-    merchInfo: {
-        textAlign: "left",
-        margin: "5px 0"
-    },
-    merchInfoUl: {
-        textAlign: "left",
+    totalPrice: {
+        textAlign: "right",
         margin: "5px 0",
-        '& li': {
-            width: "50%",
-            display: "inline-block"
-        }
+        padding: "16px",
+        fontWeight: "700",
+        fontSize: "24px"
     },
     btnGroup: {
         '& button:last-child': {
@@ -110,10 +105,6 @@ class CartPage extends Component {
     //     }
     // }
 
-    // state = {
-    //     quantity: 1
-    // }
-
     handleChange = (item) => {
 
     }
@@ -122,7 +113,6 @@ class CartPage extends Component {
         const { classes } = this.props;
         if (this.props.reduxStore.cart.length > 0) {
             return (
-                // <button onClick={this.goToReview}>Review Order</button>
                 <>
                     <div className={classes.btnGroup}>
                         <Button
@@ -179,6 +169,17 @@ class CartPage extends Component {
         this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
     }
 
+    calcTotal = () => {
+        const { classes } = this.props;
+        let totalPrice = 0;
+        this.props.reduxStore.cart.map(item => 
+            totalPrice += item.price_pennies
+        )
+        return (
+            <div className={classes.totalPrice}>Total: ${(totalPrice / 100).toFixed(2)}</div>
+        );
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -187,18 +188,6 @@ class CartPage extends Component {
                     <h2 className="page-title">Your Cart</h2>
                     <ul>
                         {this.props.reduxStore.cart.map((item, i) =>
-                            // <li key={i}>
-                            //     <img src={item.image_url} height="150" alt="" />
-                            //     <h2>{item.title}</h2>
-                            //     <p>{item.description}</p>
-                            //     <h4>{item.price_pennies}</h4>
-                            //     <div>
-                            //         <button onClick={() => this.decrementQuantity(item)}>-</button>
-                            //         <input type="number" value={item.quantity} onChange={() => this.handleChange(item)} readOnly />
-                            //         <button onClick={() => this.incrementQuantity(item)}>+</button>
-                            //     </div>
-                            //     <button onClick={() => this.removeCartItem(item)}>Remove</button>
-                            // </li>
                             <Card className={classes.card} key={i}>
                                 <CardContent>
                                     <div className={classes.merchInfo}>
@@ -226,15 +215,15 @@ class CartPage extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <div className={classes.merchInfo}>Total Order Price: ${(item.total_price_pennies / 100).toFixed(2)}</div> */}
                                 </CardContent>
                             </Card>
                         )}
                     </ul>
+                    {this.calcTotal()}
+                    
                     {/* {this.checkSession()} */}
                     {/* <CheckoutBtn cart={this.state.cart} clearCart={this.clearCart} goToCheckout={this.goToCheckout} /> */}
                     {this.checkForProducts()}
-                    {/* <button onClick={this.clearCart}>Clear Entire Cart</button> */}
                 </div>
             </>
         );
