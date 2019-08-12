@@ -37,7 +37,7 @@ function* fetchProducts() {
 function* addProduct(action) {
     try {
         yield axios.post('/api/merch', action.payload);
-        notify.show('The product was successfully added!', 'success', 4000);
+        notify.show('The product was successfully added!', 'success');
         yield put({ type: 'FETCH_PRODUCTS'});
     } catch (err) {
         notify.show(`There was an error with adding the product: ${err}`, 'error', -1);
@@ -48,7 +48,7 @@ function* addProduct(action) {
 function* updateProduct(action) {
     try {
         yield axios.put(`/api/merch/${action.payload.id}`, action.payload);
-        notify.show('The product was successfully updated!', 'success', 4000);
+        notify.show('The product was successfully updated!', 'success');
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (err) {
         notify.show(`There was an error with updating the product: ${err}`, 'error', -1);
