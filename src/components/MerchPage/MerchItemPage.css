@@ -1,0 +1,25 @@
+.merch-item {
+    max-width: 700px;
+    margin: 150px auto;
+}
+
+.merch-item_left {
+    width: 50%;
+    height: 300px;
+    display: inline-block;
+}
+
+.merch-item_right {
+    width: 50%;
+    height: 300px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.merch-item h2 {
+    font-size: 30px;
+}
+
+.merch-item .btn-group {
+    display: grid;
+}

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './AdminNav.css';
 
 const AdminNav = (props) => (
     <div className="nav admin-nav">
         <div className="nav-right">
-            <Link className="nav-link admin-nav-link" to="/manage-shows">
+            <NavLink className="nav-link admin-nav-link" to="/manage-shows">
                 Manage Shows
-            </Link>
-            <Link className="nav-link admin-nav-link" to="/manage-merch">
+            </NavLink>
+            <NavLink className="nav-link admin-nav-link" to="/manage-merch">
                 Manage Merch
-            </Link>
+            </NavLink>
         </div>
     </div>
 );
