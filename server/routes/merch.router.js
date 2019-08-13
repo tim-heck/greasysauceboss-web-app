@@ -33,10 +33,10 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
     const sqlText = `
-        INSERT INTO products (title, description, price_pennies, image_url)
-        VALUES ($1, $2, $3, $4);
+        INSERT INTO products (title, description, price_pennies, image_url, hide)
+        VALUES ($1, $2, $3, $4, $5);
     `;
-    const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url];
+    const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url, req.body.hide];
     pool.query(sqlText, values).then(result => {
         res.sendStatus(201);
     }).catch(err => {
@@ -50,10 +50,27 @@ router.post('/', (req, res) => {
  */
 router.put('/:id', (req, res) => {
     const sqlText = `
-        UPDATE products SET title = $1, description = $2, price_pennies = $3, image_url = $4
-        WHERE id = $5;
+        UPDATE products SET title = $1, description = $2, price_pennies = $3, image_url = $4, hide = $5
+        WHERE id = $6;
     `;
-    const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url, req.params.id];
+    const values = [req.body.title, req.body.description, req.body.price_pennies, req.body.image_url, req.body.hide, req.params.id];
+    pool.query(sqlText, values).then(result => {
+        res.sendStatus(200);
+    }).catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
+/**
+ * PUT route for updating a specific product's hide property
+ */
+router.put('/hide/:id', (req, res) => {
+    const sqlText = `
+        UPDATE products SET hide = $1
+        WHERE id = $2;
+    `;
+    const values = [req.body.hide, req.params.id];
     pool.query(sqlText, values).then(result => {
         res.sendStatus(200);
     }).catch(err => {

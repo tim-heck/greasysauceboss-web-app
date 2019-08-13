@@ -64,12 +64,12 @@ class MerchPage extends Component {
             notify.show(`${product.title} added to the cart!`, "success", 3000);
         } catch (err) {
             notify.show(
-                `Something went wrong! That's not greasy... Try again later!`, 
-                "error", 
+                `Something went wrong! That's not greasy... Try again later!`,
+                "error",
                 3000
             );
         }
-     }
+    }
 
     // FOR STRIPE -> STRETCH GOAL
     // goToCheckout = () => {
@@ -84,37 +84,71 @@ class MerchPage extends Component {
         this.props.history.push(`/merch/${product.id}/${urlTitle}`);
     }
 
-    render() {
+    displayProduct = (item) => {
         const { classes } = this.props;
+        if (item.hide) {
+            return (<></>);
+        } else {
+            return (
+                <Card className={classes.card} key={item.id}>
+                    <CardActionArea>
+                        <CardMedia
+                            className={classes.media}
+                            image={item.image_url}
+                            title={item.title}
+                            onClick={() => this.viewProduct(item)}
+                        />
+                        <CardContent>
+                            <Typography className={classes.typography}>
+                                {item.title}
+                            </Typography>
+                            <br />
+                            <Typography className={classes.typography}>
+                                ${(item.price_pennies / 100).toFixed(2)}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions className={classes.actions}>
+                        <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
+                            Add to Cart
+                        </Button>
+                    </CardActions>
+                </Card>
+            );
+        }
+    }
+
+    render() {
         return (
             <>
                 <div className="container merch-list">
                     <h2 className="page-title">Merch</h2>
-                    {this.props.reduxStore.merch.merchReducer.map(item =>
-                        <Card className={classes.card} key={item.id}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={item.image_url}
-                                    title={item.title}
-                                    onClick={() => this.viewProduct(item)}
-                                />
-                                <CardContent>
-                                    <Typography className={classes.typography}>
-                                        {item.title}
-                                    </Typography>
-                                    <br />
-                                    <Typography className={classes.typography}>
-                                        ${(item.price_pennies / 100).toFixed(2)}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions className={classes.actions}>
-                                <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
-                                    Add to Cart
-                                </Button>
-                            </CardActions>
-                        </Card>
+                    {this.props.reduxStore.merch.merchReducer.map(item => 
+                        this.displayProduct(item) 
+                        // <Card className={classes.card} key={item.id}>
+                        //     <CardActionArea>
+                        //         <CardMedia
+                        //             className={classes.media}
+                        //             image={item.image_url}
+                        //             title={item.title}
+                        //             onClick={() => this.viewProduct(item)}
+                        //         />
+                        //         <CardContent>
+                        //             <Typography className={classes.typography}>
+                        //                 {item.title}
+                        //             </Typography>
+                        //             <br />
+                        //             <Typography className={classes.typography}>
+                        //                 ${(item.price_pennies / 100).toFixed(2)}
+                        //             </Typography>
+                        //         </CardContent>
+                        //     </CardActionArea>
+                        //     <CardActions className={classes.actions}>
+                        //         <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
+                        //             Add to Cart
+                        //         </Button>
+                        //     </CardActions>
+                        // </Card>
                     )}
                 </div>
             </>
