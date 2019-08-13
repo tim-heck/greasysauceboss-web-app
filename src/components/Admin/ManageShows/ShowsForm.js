@@ -60,7 +60,18 @@ const styles = theme => ({
         '& button:last-child': {
             float: "right",
         }
-    }
+    },
+    cssLabel: {
+        '&$cssFocused': {
+            color: "#1f2833",
+        },
+    },
+    cssFocused: {},
+    cssUnderline: {
+        '&:after': {
+            borderBottomColor: "#1f2833",
+        },
+    },
 });
 
 class ShowsForm extends Component {
@@ -157,30 +168,44 @@ class ShowsForm extends Component {
                 <div className="container show-form-page">
                     <h2 className="page-title">Show Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
-                        {/* <TextField
-                            label="Show Date"
-                            className={classes.textFieldDate}
-                            value={this.state.date}
-                            onChange={(event) => this.handleChangeFor(event, 'date')}
-                            margin="normal"
-                            required
-                        /> */}
                         <TextField
                             id="date"
-                            label="Show Date"
                             type="date"
                             value={this.state.date}
                             className={classes.textFieldDate}
-                            onChange={(event) => this.handleChangeFor(event, 'date')}
                             InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
                                 shrink: true,
                             }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
+                            label="Show Date"
+                            onChange={(event) => this.handleChangeFor(event, 'date')}
                             margin="normal"
                             required
                         />
                         <TextField
                             label="Location"
                             className={classes.textFieldLocation}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.location}
                             onChange={(event) => this.handleChangeFor(event, 'location')}
                             margin="normal"
@@ -201,6 +226,18 @@ class ShowsForm extends Component {
                         <TextField
                             label="Tickets URL"
                             className={classes.textFieldTicketUrl}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.ticket_url}
                             onChange={(event) => this.handleChangeFor(event, 'ticket_url')}
                             margin="normal"

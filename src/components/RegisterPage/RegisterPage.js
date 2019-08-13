@@ -34,7 +34,18 @@ const styles = theme => ({
   title: {
     fontSize: 30,
     margin: "0 0 10px 0",
-  }
+  },
+  cssLabel: {
+    '&$cssFocused': {
+      color: "#1f2833",
+    },
+  },
+  cssFocused: {},
+  cssUnderline: {
+    '&:after': {
+      borderBottomColor: "#1f2833",
+    },
+  },
 });
 
 class RegisterPage extends Component {
@@ -80,6 +91,18 @@ class RegisterPage extends Component {
             <TextField
               label="Username"
               className={classes.textField}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  focused: classes.cssFocused,
+                  underline: classes.cssUnderline,
+                },
+              }}
               value={this.state.username}
               onChange={this.handleInputChangeFor('username')}
               margin="normal"
@@ -91,6 +114,18 @@ class RegisterPage extends Component {
               type="password"
               label="Password"
               className={classes.textField}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  focused: classes.cssFocused,
+                  underline: classes.cssUnderline,
+                },
+              }}
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
               margin="normal"
