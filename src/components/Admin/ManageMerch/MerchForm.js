@@ -49,7 +49,18 @@ const styles = theme => ({
         '& button:last-child': {
             float: "right",
         }
-    }
+    },
+    cssLabel: {
+        '&$cssFocused': {
+            color: "#1f2833",
+        },
+    },
+    cssFocused: {},
+    cssUnderline: {
+        '&:after': {
+            borderBottomColor: "#1f2833",
+        },
+    },
 });
 
 class MerchForm extends Component {
@@ -124,25 +135,23 @@ class MerchForm extends Component {
         return (
             <>
                 <div className="container merch-form-page">
-                    {/* <h2>Merch Form</h2>
-                    <form>
-                        <label>Title:</label>
-                        <input type="text" value={this.state.title} onChange={(event) => this.handleChangeFor(event, 'title')} required />
-                        <br />
-                        <label>Description:</label>
-                        <textarea type="text" value={this.state.description} onChange={(event) => this.handleChangeFor(event, 'description')} required ></textarea>
-                        <br />
-                        <label>Price (in pennies):</label>
-                        <input type="number" value={this.state.price_pennies} onChange={(event) => this.handleChangeFor(event, 'price_pennies')} required />
-                        <label>Local Image URL:</label>
-                        <input type="text" value={this.state.image_url} onChange={(event) => this.handleChangeFor(event, 'image_url')} required />
-                        {this.checkEditMode()}
-                    </form> */}
                     <h2 className="page-title">Merch Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
                             label="Title"
                             className={classes.textFieldTitle}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.title}
                             onChange={(event) => this.handleChangeFor(event, 'title')}
                             margin="normal"
@@ -152,6 +161,18 @@ class MerchForm extends Component {
                         <TextField
                             label="Price (in pennies)"
                             className={classes.textFieldPrice}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.price_pennies}
                             onChange={(event) => this.handleChangeFor(event, 'price_pennies')}
                             margin="normal"
@@ -163,6 +184,18 @@ class MerchForm extends Component {
                             multiline
                             rows="6"
                             className={classes.textFieldDescription}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.description}
                             onChange={(event) => this.handleChangeFor(event, 'description')}
                             margin="normal"
@@ -172,6 +205,18 @@ class MerchForm extends Component {
                         <TextField
                             label="Image URL"
                             className={classes.textFieldImageUrl}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.image_url}
                             onChange={(event) => this.handleChangeFor(event, 'image_url')}
                             margin="normal"

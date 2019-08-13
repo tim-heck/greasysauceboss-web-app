@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ShowsForm.css';
+import Moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -59,7 +60,18 @@ const styles = theme => ({
         '& button:last-child': {
             float: "right",
         }
-    }
+    },
+    cssLabel: {
+        '&$cssFocused': {
+            color: "#1f2833",
+        },
+    },
+    cssFocused: {},
+    cssUnderline: {
+        '&:after': {
+            borderBottomColor: "#1f2833",
+        },
+    },
 });
 
 class ShowsForm extends Component {
@@ -79,7 +91,7 @@ class ShowsForm extends Component {
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
                 id: this.props.reduxStore.shows.editShowReducer.id,
-                date: this.props.reduxStore.shows.editShowReducer.show_date,
+                date: Moment(this.props.reduxStore.shows.editShowReducer.show_date).format('YYYY-MM-DD'),
                 location: this.props.reduxStore.shows.editShowReducer.location,
                 ticket: this.props.reduxStore.shows.editShowReducer.ticket,
                 ticket_url: ticketUrl
@@ -157,9 +169,24 @@ class ShowsForm extends Component {
                     <h2 className="page-title">Show Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
                         <TextField
-                            label="Show Date"
-                            className={classes.textFieldDate}
+                            id="date"
+                            type="date"
                             value={this.state.date}
+                            className={classes.textFieldDate}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                                shrink: true,
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
+                            label="Show Date"
                             onChange={(event) => this.handleChangeFor(event, 'date')}
                             margin="normal"
                             required
@@ -167,6 +194,18 @@ class ShowsForm extends Component {
                         <TextField
                             label="Location"
                             className={classes.textFieldLocation}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.location}
                             onChange={(event) => this.handleChangeFor(event, 'location')}
                             margin="normal"
@@ -187,6 +226,18 @@ class ShowsForm extends Component {
                         <TextField
                             label="Tickets URL"
                             className={classes.textFieldTicketUrl}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.cssLabel,
+                                    focused: classes.cssFocused,
+                                },
+                            }}
+                            InputProps={{
+                                classes: {
+                                    focused: classes.cssFocused,
+                                    underline: classes.cssUnderline,
+                                },
+                            }}
                             value={this.state.ticket_url}
                             onChange={(event) => this.handleChangeFor(event, 'ticket_url')}
                             margin="normal"
