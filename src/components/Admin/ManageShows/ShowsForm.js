@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ShowsForm.css';
+import Moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -79,7 +80,7 @@ class ShowsForm extends Component {
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
                 id: this.props.reduxStore.shows.editShowReducer.id,
-                date: this.props.reduxStore.shows.editShowReducer.show_date,
+                date: Moment(this.props.reduxStore.shows.editShowReducer.show_date).format('YYYY-MM-DD'),
                 location: this.props.reduxStore.shows.editShowReducer.location,
                 ticket: this.props.reduxStore.shows.editShowReducer.ticket,
                 ticket_url: ticketUrl
@@ -156,11 +157,24 @@ class ShowsForm extends Component {
                 <div className="container show-form-page">
                     <h2 className="page-title">Show Form</h2>
                     <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
+                        {/* <TextField
                             label="Show Date"
                             className={classes.textFieldDate}
                             value={this.state.date}
                             onChange={(event) => this.handleChangeFor(event, 'date')}
+                            margin="normal"
+                            required
+                        /> */}
+                        <TextField
+                            id="date"
+                            label="Show Date"
+                            type="date"
+                            value={this.state.date}
+                            className={classes.textFieldDate}
+                            onChange={(event) => this.handleChangeFor(event, 'date')}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             margin="normal"
                             required
                         />
