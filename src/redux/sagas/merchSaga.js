@@ -9,6 +9,7 @@ export default function* merchSaga() {
     yield takeEvery('UPDATE_PRODUCT', updateProduct);
     yield takeEvery('DELETE_PRODUCT', deleteProduct);
     yield takeEvery('VIEW_PRODUCT', viewProduct);
+    yield takeEvery('HIDE_PRODUCT', hideProduct);
 }
 
 // FOR STRIPE -> STRETCH GOAL
@@ -74,5 +75,16 @@ function* viewProduct(action) {
     } catch (err) {
         notify.show(`The route to this product does not exist: ${err}. Try again later!`, 'error', 15000);
         console.log('error with viewing product', err);
+    }
+}
+
+function* hideProduct(action) {
+    try {
+        yield axios.put(`/api/merch/hide/${action.payload.id}`, action.payload);
+        notify.show('The product was successfully hidden!', 'success');
+        yield put({ type: 'FETCH_PRODUCTS' });
+    } catch (err) {
+        notify.show(`There was an error with hiding the product: ${err}`, 'error', 15000);
+        console.log('error with hiding product', err);
     }
 }

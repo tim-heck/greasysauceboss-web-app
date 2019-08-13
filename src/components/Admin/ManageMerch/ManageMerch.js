@@ -65,8 +65,23 @@ class ManageMerch extends Component {
             this.props.dispatch({ type: 'EDIT_PRODUCT', payload: merchToModify });
             this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: true } });
             this.props.history.push('/merch-form');
+        } else if (dispatchType === 'delete') {
+            this.props.dispatch({ type: 'DELETE_PRODUCT', payload: merchToModify });
         } else {
-            this.props.dispatch({ type: 'DELETE_PRODUCT', payload: merchToModify })
+            this.props.dispatch({ type: 'HIDE_PRODUCT', payload: { id: merchToModify.id, hide: !merchToModify.hide} })
+        }
+    }
+
+    checkHidden = (product) => {
+        const { classes } = this.props;
+        if (product.hide) {
+            return (
+                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Unhide</Button>
+            );
+        } else {
+            return (
+                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Hide</Button>
+            );
         }
     }
 
@@ -83,7 +98,6 @@ class ManageMerch extends Component {
                                     className={classes.media}
                                     image={item.image_url}
                                     title={item.title}
-                                    onClick={() => this.viewProduct(item)}
                                 />
                                 <CardContent>
                                     <Typography className={classes.typography}>
@@ -101,7 +115,9 @@ class ManageMerch extends Component {
                             </CardActionArea>
                             <CardActions className={classes.actions}>
                                 <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
-                                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button>
+                                {this.checkHidden(item)}
+                                {/* <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', item)}>Hide: {item.hide}</Button> */}
+                                {/* <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button> */}
                             </CardActions>
                         </Card>
                     )}

@@ -58,7 +58,8 @@ class MerchForm extends Component {
         title: '',
         description: '',
         price_pennies: 0,
-        image_url: ''
+        image_url: '',
+        hide: false
     }
 
     componentDidMount() {
@@ -89,7 +90,7 @@ class MerchForm extends Component {
             this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state });
             // this.props.history.push('/manage-merch');
         }
-        this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+        // this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
     checkEditMode = () => {
