@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { notify } from 'react-notify-toast';
 
 export default function* showsSaga() {
     yield takeEvery('FETCH_SHOWS', fetchShows);
@@ -9,42 +10,45 @@ export default function* showsSaga() {
 }
 
 function* fetchShows() {
-    console.log('in fetchShows');
     try {
         const response = yield axios.get('/api/shows');
         yield put({ type: 'SET_SHOWS', payload: response.data });
     } catch (err) {
+        notify.show(`There was an error with getting the shows: ${err}`, 'error', 15000);
         console.log('error with getting shows', err);
     }
 }
 
 function* addShow(action) {
-    console.log('in addShows');
     try {
         yield axios.post('/api/shows', action.payload);
+        notify.show('The show was successfully added!', 'success');
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
+        notify.show(`There was an error with adding a show: ${err}`, 'error', 15000);
         console.log('error with adding shows', err);
     }
 }
 
 function* updateShow(action) {
-    console.log('in updateShows');
-    console.log('action.payload in PUT', action.payload)
     try {
         yield axios.put(`/api/shows/${action.payload.id}`, action.payload);
+
+        notify.show('The product was successfully updated!', 'success');
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
+        notify.show(`There was an error with updating a show: ${err}`, 'error', 15000);
         console.log('error with updating shows', err);
     }
 }
 
 function* deleteShow(action) {
-    console.log('in deleteShows');
     try {
         yield axios.delete(`/api/shows/${action.payload.id}`);
+        notify.show('The product was successfully deleted!', 'success');
         yield put({ type: 'FETCH_SHOWS' });
     } catch (err) {
+        notify.show(`There was an error with deleting the show: ${err}`, 'error', 15000);
         console.log('error with deleting shows', err);
     }
 }

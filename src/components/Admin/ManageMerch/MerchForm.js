@@ -84,10 +84,10 @@ class MerchForm extends Component {
         event.preventDefault();
         if (addOrEdit === 'add') {
             this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state });
-            this.props.history.push('/manage-merch');
+            // this.props.history.push('/manage-merch');
         } else {
             this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state });
-            this.props.history.push('/manage-merch');
+            // this.props.history.push('/manage-merch');
         }
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }

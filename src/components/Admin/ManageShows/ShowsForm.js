@@ -105,10 +105,10 @@ class ShowsForm extends Component {
         event.preventDefault();
         if (addOrEdit === 'add') {
             this.props.dispatch({ type: 'ADD_SHOW', payload: this.state });
-            this.props.history.push('/manage-shows');
+            // this.props.history.push('/manage-shows');
         } else {
             this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state });
-            this.props.history.push('/manage-shows');
+            // this.props.history.push('/manage-shows');
 
         }
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
@@ -134,7 +134,7 @@ class ShowsForm extends Component {
             );
         }
     }
-    
+
     back = () => {
         this.props.history.push('/manage-shows');
     }
@@ -179,7 +179,7 @@ class ShowsForm extends Component {
                                     className={classes.checkbox} checked={this.state.ticket}
                                     onChange={(event) => this.handleChangeFor(event, 'ticket')}
                                     value="ticket"
-                                color="default"
+                                    color="default"
                                 />
                             }
                             label="Tickets?"

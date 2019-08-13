@@ -9,8 +9,9 @@ body {
 } */
 
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+    color: tomato;
+    margin: 10px 20px;
+    font-size: 12px;
 }
 
 form {

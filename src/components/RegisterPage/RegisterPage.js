@@ -69,16 +69,13 @@ class RegisterPage extends Component {
     const { classes } = this.props;
     return (
       <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
         <form onSubmit={this.registerUser} className={classes.form}>
           <h1 className={classes.title}>Register User</h1>
+          {this.props.errors.registrationMessage && (
+            <h6 className="alert" role="alert">
+              {this.props.errors.registrationMessage}
+            </h6>
+          )}
           <div>
             <TextField
               label="Username"
