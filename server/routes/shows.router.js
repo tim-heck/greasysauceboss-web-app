@@ -4,11 +4,11 @@ const pool = require('../modules/pool');
 
 /**
  * GET route for all shows
- * Selects all the shows from the show's table and orders them by id
+ * Selects all the shows from the show's table and orders them by date
  */
 router.get('/', (req, res) => {
     // console.log('shows GET route')
-    const sqlText = `SELECT * FROM shows ORDER BY id ASC;`;
+    const sqlText = `SELECT * FROM shows ORDER BY show_date ASC;`;
     pool.query(sqlText).then(result => {
         console.log(result.rows);
         res.send(result.rows);
