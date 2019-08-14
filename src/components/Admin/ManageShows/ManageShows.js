@@ -24,23 +24,42 @@ const styles = theme => ({
 
 class ManageShows extends Component {
 
+    /**
+     * Method runs when the component is ready
+     * Gets all shows from the database
+     * Sets edit mode to false if it was true onload
+     */
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_SHOWS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
+    /**
+     * Handles all click events
+     * dispatchType: dictates what action to take
+     * showToModify: Show to use for action
+     */
     handleClick = (dispatchType, showToModify) => {
         if (dispatchType === 'add') {
+            // Redirects to shows form
             this.props.history.push('/shows-form');
         } else if (dispatchType === 'edit') {
+            // sends show to editShowReducer
             this.props.dispatch({ type: 'EDIT_SHOW', payload: showToModify });
-            this.props.dispatch({ type: 'EDIT_MODE', payload: {edit: true} });
+            // Flips editMode on
+            this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: true } });
+            // Redirects to shows form
             this.props.history.push('/shows-form');
         } else {
+            // Deletes show
             this.props.dispatch({ type: 'DELETE_SHOW', payload: showToModify })
         }
     }
 
+    /**
+     * Method checks if the show has tickets for purchase
+     * show: show to check
+     */
     checkTickets = (show) => {
         const { classes } = this.props;
         if (show.ticket) {
@@ -69,12 +88,13 @@ class ManageShows extends Component {
                     </ul>
                     <br />
                     <Button variant="contained" className={classes.button} onClick={() => this.handleClick('add')}>Add New Show</Button>
-                </div> 
+                </div>
             </>
         );
     }
 }
 
+// Redux State
 const stateToProps = (reduxStore) => ({
     reduxStore
 });
