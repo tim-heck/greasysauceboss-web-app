@@ -66,41 +66,102 @@ const styles = theme => ({
 class MerchForm extends Component {
 
     state = {
-        title: '',
-        description: '',
-        price_pennies: 0,
-        image_url: '',
-        hide: false
+        product: {
+            title: '',
+            description: '',
+            price_pennies: 0,
+            image_url: '',
+            hide: false,
+        },
+        titleError: null,
+        priceError: null,
+        descriptionError: null,
+        urlError: null,
     }
 
     componentDidMount() {
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
-                id: this.props.reduxStore.merch.editMerchReducer.id,
-                title: this.props.reduxStore.merch.editMerchReducer.title,
-                description: this.props.reduxStore.merch.editMerchReducer.description,
-                price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
-                image_url: this.props.reduxStore.merch.editMerchReducer.image_url
+                product: {
+                    id: this.props.reduxStore.merch.editMerchReducer.id,
+                    title: this.props.reduxStore.merch.editMerchReducer.title,
+                    description: this.props.reduxStore.merch.editMerchReducer.description,
+                    price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
+                    image_url: this.props.reduxStore.merch.editMerchReducer.image_url
+                }
             })
         }
     }
 
-    handleChangeFor = (event, propToChange) => {
+    handleChangeFor = (event, propToChange, errorToChange) => {
         this.setState({
-            ...this.state,
-            [propToChange]: event.target.value
-        })
+            product: {
+                ...this.state.product,
+                [propToChange]: event.target.value
+            },
+            [errorToChange]: false
+        });
+
+        if (event.target.value === '' || (propToChange === 'price_pennies' && event.target.value < 0)) {
+            this.setState({
+                [errorToChange]: true
+            });
+        }
     }
 
     handleSubmit = (event, addOrEdit) => {
         event.preventDefault();
-        if (addOrEdit === 'add') {
-            this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state });
-            // this.props.history.push('/manage-merch');
+
+        if (this.state.product.title === '') {
+            this.setState({
+                titleError: true
+            })
         } else {
-            this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state });
-            // this.props.history.push('/manage-merch');
+            this.setState({
+                titleError: false
+            })
         }
+
+        if (this.state.product.description === '') {
+            this.setState({
+                descriptionError: true
+            })
+        } else {
+            this.setState({
+                descriptionError: false
+            })
+        }
+
+        if (this.state.product.price_pennies < 0 || this.state.product.price_pennies === '') {
+            this.setState({
+                priceError: true
+            })
+        } else {
+            this.setState({
+                priceError: false
+            })
+        }
+
+        if (this.state.product.image_url === '') {
+            this.setState({
+                urlError: true
+            })
+        } else {
+            this.setState({
+                urlError: false
+            })
+        }
+
+        if (this.state.titleError === false && this.state.priceError === false && this.state.descriptionError === false && this.state.urlError === false) {
+            if (addOrEdit === 'add') {
+                this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.product });
+                // this.props.history.push('/manage-merch');
+            } else {
+                this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state.product });
+                // this.props.history.push('/manage-merch');
+            }
+        }
+
         // this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
@@ -124,7 +185,6 @@ class MerchForm extends Component {
             );
         }
     }
-
 
     back = () => {
         this.props.history.push('/manage-merch');
@@ -152,10 +212,11 @@ class MerchForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.title}
-                            onChange={(event) => this.handleChangeFor(event, 'title')}
+                            value={this.state.product.title}
+                            onChange={(event) => this.handleChangeFor(event, 'title', 'titleError')}
                             margin="normal"
                             required
+                            error={this.state.titleError}
                         />
                         <br />
                         <TextField
@@ -173,10 +234,12 @@ class MerchForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.price_pennies}
-                            onChange={(event) => this.handleChangeFor(event, 'price_pennies')}
+                            value={this.state.product.price_pennies}
+                            onChange={(event) => this.handleChangeFor(event, 'price_pennies', 'priceError')}
                             margin="normal"
                             required
+                            type="number"
+                            error={this.state.priceError}
                         />
                         <br />
                         <TextField
@@ -196,12 +259,13 @@ class MerchForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.description}
-                            onChange={(event) => this.handleChangeFor(event, 'description')}
+                            value={this.state.product.description}
+                            onChange={(event) => this.handleChangeFor(event, 'description', 'descriptionError')}
                             margin="normal"
                             required
+                            error={this.state.descriptionError}
                         />
-                        <br/>
+                        <br />
                         <TextField
                             label="Image URL"
                             className={classes.textFieldImageUrl}
@@ -217,10 +281,11 @@ class MerchForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.image_url}
-                            onChange={(event) => this.handleChangeFor(event, 'image_url')}
+                            value={this.state.product.image_url}
+                            onChange={(event) => this.handleChangeFor(event, 'image_url', 'urlError')}
                             margin="normal"
                             required
+                            error={this.state.urlError}
                         />
                         <br />
                         <div className={classes.btnGroup}>
