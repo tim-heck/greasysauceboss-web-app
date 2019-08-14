@@ -41,9 +41,10 @@ const Nav = (props) => (
         )}
       </div>
     </div>
+    {/* Only displays the admin menu if the user is an admin */}
     {props.user.id && props.user.admin === true && (
       <>
-        <AdminNav /> 
+        <AdminNav />
       </>
     )}
     <div className="nav-placeholder"></div>

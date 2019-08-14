@@ -74,6 +74,10 @@ const styles = theme => ({
 
 class ProfilePage extends Component {
 
+    /**
+     * Method runs when the component is ready
+     * Fetches the users orders based on the users id
+     */
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_USERS_ORDERS', payload: this.props.reduxStore.user.id });
     }
@@ -95,9 +99,7 @@ class ProfilePage extends Component {
                                 <div className={classes.merchInfo}>
                                     <h4>Products Ordered:</h4>
                                     <div className={classes.product}>
-                                        {/* <div> */}
-                                            <img height="100" src={item.image_url} alt={item.title} />
-                                        {/* </div> */}
+                                        <img height="100" src={item.image_url} alt={item.title} />
                                         <div>
                                             <ul>
                                                 <li>Item: {item.title}</li>
@@ -120,6 +122,7 @@ class ProfilePage extends Component {
     }
 }
 
+// redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 })
