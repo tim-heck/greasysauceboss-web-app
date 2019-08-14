@@ -6,7 +6,7 @@ const pool = require('../modules/pool');
  * GET route for all products
  */
 router.get('/', (req, res) => {
-    const sqlText = `SELECT * FROM products;`;
+    const sqlText = `SELECT * FROM products ORDER BY id;`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(err => {
