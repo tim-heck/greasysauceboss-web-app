@@ -4,10 +4,11 @@ const pool = require('../modules/pool');
 
 /**
  * GET route for all shows
+ * Selects all the shows from the show's table and orders them by id
  */
 router.get('/', (req, res) => {
     // console.log('shows GET route')
-    const sqlText = `SELECT * FROM shows ORDER BY id;`;
+    const sqlText = `SELECT * FROM shows ORDER BY id ASC;`;
     pool.query(sqlText).then(result => {
         console.log(result.rows);
         res.send(result.rows);
@@ -19,6 +20,7 @@ router.get('/', (req, res) => {
 
 /**
  * POST route for adding a new show
+ * Adds a show to the shows table
  */
 router.post('/', (req, res) => {
     const sqlText = `
@@ -37,6 +39,7 @@ router.post('/', (req, res) => {
 
 /**
  * PUT route for updating a specific show
+ * Updates a specific show in the shows table based on the id
  */
 router.put('/:id', (req, res) => {
     console.log('req.body in PUT:', req.body)
@@ -56,6 +59,7 @@ router.put('/:id', (req, res) => {
 
 /**
  * DELETE route for deleting a specific show
+ * Removes a specific show based on the id
  */
 router.delete('/:id', (req, res) => {
     const sqlText = `

@@ -85,8 +85,13 @@ class ShowsForm extends Component {
         },
         dateError: null,
         locationError: null,
+        ticketError: null,
     }
 
+    /**
+     * Method runs when the component is ready
+     * If edit mode is on, sets the state with the show information to edit
+     */
     componentDidMount() {
         let ticketUrl = '';
         if (this.props.reduxStore.shows.editShowReducer.ticket_url !== null) {
@@ -105,26 +110,19 @@ class ShowsForm extends Component {
         }
     }
 
-    // handleChangeFor = (event, propToChange) => {
-    //     if (propToChange === 'ticket') {
-    //         this.setState({
-    //             ...this.state,
-    //             [propToChange]: !this.state.ticket
-    //         })
-    //     } else {
-    //         this.setState({
-    //             ...this.state,
-    //             [propToChange]: event.target.value
-    //         })
-    //     }
-    // }
-
+    /**
+     * Method that handles an input changes
+     * event: the change that occurs
+     * propToChange: the state property being changed
+     * errorToChange: the states error property to change
+     */
     handleChangeFor = (event, propToChange, errorToChange) => {
+        // The ticket value is handle differently since it is a checkbox
         if (propToChange === 'ticket') {
             this.setState({
                 show: {
                     ...this.state.show,
-                    [propToChange]: !this.state.show.ticket
+                    [propToChange]: event.target.checked
                 },
                 [errorToChange]: false
             });
@@ -138,6 +136,7 @@ class ShowsForm extends Component {
             });
         }
 
+        // Checks if the input values are empty
         if (event.target.value === '') {
             this.setState({
                 [errorToChange]: true
@@ -145,6 +144,12 @@ class ShowsForm extends Component {
         }
     }
 
+    /**
+     * Method that handles the form submission
+     * Checks for errors for each input, changes state properties accordingly
+     * event: submitting the form
+     * addOrEdit: checks if the user is adding a new product or editing an existing one
+     */
     handleSubmit = (event, addOrEdit) => {
         event.preventDefault();
 
@@ -170,17 +175,20 @@ class ShowsForm extends Component {
 
         if (this.state.dateError === false && this.state.locationError === false) {
             if (addOrEdit === 'add') {
+                // add show to DB
                 this.props.dispatch({ type: 'ADD_SHOW', payload: this.state.show });
-                // this.props.history.push('/manage-shows');
             } else {
+                // updates show in DB
                 this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state.show });
-                // this.props.history.push('/manage-shows');
 
             }
         }
-        // this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
+    /**
+     * Method conditionally renders a submission button based on if the user
+     * is in edit mode or not
+     */
     checkEditMode = () => {
         const { classes } = this.props;
         if (this.props.reduxStore.editMode.edit) {
@@ -202,19 +210,10 @@ class ShowsForm extends Component {
         }
     }
 
+    // Sends the user back to the manage-merch page
     back = () => {
         this.props.history.push('/manage-shows');
     }
-
-    // cancel = () => {
-    //     this.setState({
-    //         date: '',
-    //         location: '',
-    //         ticket: false,
-    //         ticket_url: ''
-    //     })
-    //     this.props.history.push('/manage-shows');
-    // }
 
     render() {
         const { classes } = this.props;
@@ -315,6 +314,7 @@ class ShowsForm extends Component {
     }
 }
 
+// redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 });

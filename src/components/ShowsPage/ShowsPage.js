@@ -25,10 +25,18 @@ const styles = theme => ({
 
 class ShowsPage extends Component {
 
+    /**
+     * Method runs when the component is ready
+     * Fetches the current list of shows from the DB
+     */
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_SHOWS' });
     }
 
+    /**
+     * Method checks if the show has tickets for purchase
+     * show: show to check
+     */
     checkTickets = (show) => {
         const { classes } = this.props;
         if (show.ticket) {
@@ -40,7 +48,6 @@ class ShowsPage extends Component {
         }
     }
 
-    
     render() {
         return (
             <>
@@ -61,6 +68,7 @@ class ShowsPage extends Component {
     }
 }
 
+// redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 });

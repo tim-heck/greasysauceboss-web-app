@@ -105,10 +105,19 @@ class CartPage extends Component {
     //     }
     // }
 
+    /**
+     * Method needed so the value of the quantity input can
+     * be modified
+     * TODO: Change to anther type of element to avoid an empty method?
+     */
     handleChange = (item) => {
 
     }
 
+    /**
+     * Method checks if the cart contains at least one product
+     * Displays a message if not and disables the buttons
+     */
     checkForProducts = () => {
         const { classes } = this.props;
         if (this.props.reduxStore.cart.length > 0) {
@@ -159,12 +168,19 @@ class CartPage extends Component {
         }
     }
 
+    // STRETCH GOAL
     // goToReview = () => {
     //     this.props.history.push('/review-order');
     // }
 
+    /**
+     * Method that completes the users order process
+     * Stores the order and cart in DB for users profile
+     */
     payNow = () => {
+        // Calculates the total price of the order
         let totalPricePennies = this.calcTotal();
+        // Adds order
         this.props.dispatch({
             type: 'ADD_ORDER',
             payload: {
@@ -172,25 +188,44 @@ class CartPage extends Component {
                 cart: this.props.reduxStore.cart
             }
         })
+        // Clears cart
         this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
     }
 
+    /**
+     * Method that removes an item from the cart
+     * product: product to remove
+     */
     removeCartItem = (product) => {
         this.props.dispatch({ type: 'REMOVE_ITEM', payload: product });
     }
 
+    /**
+     * Decrements the quantity of the product
+     * product: product to decrement quantity
+     */
     decrementQuantity = (product) => {
         this.props.dispatch({ type: 'DECREMENT_QUANTITY', payload: product });
     }
 
+    /**
+     * Increments the quantity of the product
+     * product: product to increment quantity
+     */
     incrementQuantity = (product) => {
         this.props.dispatch({ type: 'INCREMENT_QUANTITY', payload: product });
     }
 
+    /**
+     * Empties the cart
+     */
     clearCart = () => {
         this.props.dispatch({ type: 'CLEAR_CART', payload: [] });
     }
 
+    /**
+     * Method that calculates the total of the cart
+     */
     calcTotal = () => {
         let totalPrice = 0;
         this.props.reduxStore.cart.map(item => 
@@ -199,6 +234,9 @@ class CartPage extends Component {
         return totalPrice;
     }
 
+    /**
+     * Method that renders the calculated total of the cart
+     */
     showTotal = () => {
         const { classes } = this.props;
         let totalPrice = this.calcTotal();
@@ -258,6 +296,7 @@ class CartPage extends Component {
     }
 }
 
+// redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 })

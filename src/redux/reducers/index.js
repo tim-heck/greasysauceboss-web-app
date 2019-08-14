@@ -18,11 +18,11 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  merch,
-  shows,
-  editMode,
-  cart,
-  order,
+  merch, // has all products, editing information the merch item being viewed individually
+  shows, 
+  editMode, // will have a boolean value to show if the admin is in edit mode or not
+  cart, // will have the users cart
+  order, // will have the users order
 });
 
 export default rootReducer;

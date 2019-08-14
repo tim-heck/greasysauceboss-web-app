@@ -79,6 +79,10 @@ class MerchForm extends Component {
         urlError: null,
     }
 
+    /**
+     * Method runs when the component is ready
+     * If edit mode is on, sets the state with the product information to edit
+     */
     componentDidMount() {
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
@@ -93,6 +97,12 @@ class MerchForm extends Component {
         }
     }
 
+    /**
+     * Method that handles an input changes
+     * event: the change that occurs
+     * propToChange: the state property being changed
+     * errorToChange: the states error property to change
+     */
     handleChangeFor = (event, propToChange, errorToChange) => {
         this.setState({
             product: {
@@ -102,6 +112,7 @@ class MerchForm extends Component {
             [errorToChange]: false
         });
 
+        // Checks if the input values are empty and less than 0 in the case of price
         if (event.target.value === '' || (propToChange === 'price_pennies' && event.target.value < 0)) {
             this.setState({
                 [errorToChange]: true
@@ -109,6 +120,12 @@ class MerchForm extends Component {
         }
     }
 
+    /**
+     * Method that handles the form submission
+     * Checks for errors for each input, changes state properties accordingly
+     * event: submitting the form
+     * addOrEdit: checks if the user is adding a new product or editing an existing one
+     */
     handleSubmit = (event, addOrEdit) => {
         event.preventDefault();
 
@@ -154,17 +171,19 @@ class MerchForm extends Component {
 
         if (this.state.titleError === false && this.state.priceError === false && this.state.descriptionError === false && this.state.urlError === false) {
             if (addOrEdit === 'add') {
+                // Adds product to DB
                 this.props.dispatch({ type: 'ADD_PRODUCT', payload: this.state.product });
-                // this.props.history.push('/manage-merch');
             } else {
+                // Updates product in DB
                 this.props.dispatch({ type: 'UPDATE_PRODUCT', payload: this.state.product });
-                // this.props.history.push('/manage-merch');
             }
         }
-
-        // this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
+    /**
+     * Method conditionally renders a submission button based on if the user
+     * is in edit mode or not
+     */
     checkEditMode = () => {
         const { classes } = this.props;
         if (this.props.reduxStore.editMode.edit) {
@@ -186,6 +205,7 @@ class MerchForm extends Component {
         }
     }
 
+    // Sends the user back to the manage-merch page
     back = () => {
         this.props.history.push('/manage-merch');
     }
@@ -303,6 +323,7 @@ class MerchForm extends Component {
     }
 }
 
+// Redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 });
