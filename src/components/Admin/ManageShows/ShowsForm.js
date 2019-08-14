@@ -178,7 +178,7 @@ class ShowsForm extends Component {
 
             }
         }
-        this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+        // this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
 
     checkEditMode = () => {
@@ -218,7 +218,6 @@ class ShowsForm extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.state);
         return (
             <>
                 <div className="container show-form-page">
