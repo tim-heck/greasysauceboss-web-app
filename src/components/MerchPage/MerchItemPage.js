@@ -25,23 +25,35 @@ const styles = theme => ({
 
 class MerchItemPage extends Component {
 
+    /**
+     * Method that runs when the component is ready
+     * Fetches the product to view from the viewMerchReducer
+     * based on the id in the url
+     */
     componentDidMount() {
         this.props.dispatch({ type: 'VIEW_PRODUCT', payload: this.props.match.params.id });
     }
 
+    /**
+     * Method that adds the selected merch item to the users cart
+     * product: product to add to cart
+     */
     addToCart = (product) => {
         try {
             this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+            // displays notification if the item was successfully added to the cart
             notify.show(`${product.title} added to the cart!`, "success", 3000);
         } catch (err) {
+            // displays notification there was an error with adding the item
             notify.show(
                 `Something went wrong! That's not greasy... Try again later!`,
                 "error",
-                3000
+                5000
             );
         }
     }
 
+    // Redirects back to the merch page
     back = () => {
         this.props.history.push('/merch')
     }
@@ -74,6 +86,7 @@ class MerchItemPage extends Component {
     }
 }
 
+// redux state
 const stateToProps = (reduxStore) => ({
     reduxStore
 });

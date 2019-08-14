@@ -54,19 +54,29 @@ const styles = theme => ({
 
 class MerchPage extends Component {
 
+    /**
+     * Method runs when the component is ready
+     */
     componentDidMount() {
+        // Gets the current list of products from DB
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
     }
 
+    /**
+     * Method that adds the selected merch item to the users cart
+     * product: product to add to cart
+     */
     addToCart = (product) => {
         try {
             this.props.dispatch({ type: 'ADD_TO_CART', payload: product });
+            // displays notification if the item was successfully added to the cart
             notify.show(`${product.title} added to the cart!`, "success", 3000);
         } catch (err) {
+            // displays notification there was an error with adding the item
             notify.show(
                 `Something went wrong! That's not greasy... Try again later!`,
                 "error",
-                3000
+                5000
             );
         }
     }
@@ -78,38 +88,50 @@ class MerchPage extends Component {
     //     this.props.history.push('/checkout');
     // }
 
+    /**
+     * Method that passes the specific products id to view to the viewMerchReducer
+     * product: product to view
+     */
     viewProduct = (product) => {
         this.props.dispatch({ type: 'VIEW_PRODUCT', payload: product.id });
+        // converts the title to all lowercase and replaces spaces with '-'
+        // so it can be put in the url cleanly
         let urlTitle = product.title.toLowerCase().replace(/ /g, '-');
+        // redirects user to the items individual page
         this.props.history.push(`/merch/${product.id}/${urlTitle}`);
     }
 
-    displayProduct = (item) => {
+    /**
+     * Method checks if the products hide property is true or not
+     * if it is true, the product will render
+     * product: product to check
+     */
+    displayProduct = (product) => {
         const { classes } = this.props;
-        if (item.hide) {
+        if (product.hide) {
             return (<></>);
         } else {
             return (
-                <Card className={classes.card} key={item.id}>
+                <Card className={classes.card} key={product.id}>
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image={item.image_url}
-                            title={item.title}
-                            onClick={() => this.viewProduct(item)}
+                            image={product.image_url}
+                            title={product.title}
+                            onClick={() => this.viewProduct(product)}
                         />
                         <CardContent>
                             <Typography className={classes.typography}>
-                                {item.title}
+                                {product.title}
                             </Typography>
                             <br />
                             <Typography className={classes.typography}>
-                                ${(item.price_pennies / 100).toFixed(2)}
+                                ${(product.price_pennies / 100).toFixed(2)}
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                     <CardActions className={classes.actions}>
-                        <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
+                        <Button variant="contained" className={classes.button} onClick={() => this.addToCart(product)}>
                             Add to Cart
                         </Button>
                     </CardActions>
@@ -125,30 +147,6 @@ class MerchPage extends Component {
                     <h2 className="page-title">Merch</h2>
                     {this.props.reduxStore.merch.merchReducer.map(item => 
                         this.displayProduct(item) 
-                        // <Card className={classes.card} key={item.id}>
-                        //     <CardActionArea>
-                        //         <CardMedia
-                        //             className={classes.media}
-                        //             image={item.image_url}
-                        //             title={item.title}
-                        //             onClick={() => this.viewProduct(item)}
-                        //         />
-                        //         <CardContent>
-                        //             <Typography className={classes.typography}>
-                        //                 {item.title}
-                        //             </Typography>
-                        //             <br />
-                        //             <Typography className={classes.typography}>
-                        //                 ${(item.price_pennies / 100).toFixed(2)}
-                        //             </Typography>
-                        //         </CardContent>
-                        //     </CardActionArea>
-                        //     <CardActions className={classes.actions}>
-                        //         <Button variant="contained" className={classes.button} onClick={() => this.addToCart(item)}>
-                        //             Add to Cart
-                        //         </Button>
-                        //     </CardActions>
-                        // </Card>
                     )}
                 </div>
             </>

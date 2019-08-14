@@ -5,6 +5,11 @@ import './HomePage.css';
 
 class HomePage extends Component {
 
+    /**
+     * Method runs when the component is ready
+     * The snippet activates on an mouseover event triggering on the home-page element
+     * it then does some math to move the background based on the mouse position
+     */
     // componentDidMount() {
     //     document.getElementById('home-page').addEventListener('mousemove', function (event) {
     //         let translateX = -((event.pageX - 600) * 0.15);
