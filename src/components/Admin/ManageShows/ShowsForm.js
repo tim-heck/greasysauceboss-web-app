@@ -77,10 +77,14 @@ const styles = theme => ({
 class ShowsForm extends Component {
 
     state = {
-        date: '',
-        location: '',
-        ticket: false,
-        ticket_url: ''
+        show: {
+            date: '',
+            location: '',
+            ticket: false,
+            ticket_url: '',
+        },
+        dateError: null,
+        locationError: null,
     }
 
     componentDidMount() {
@@ -90,38 +94,89 @@ class ShowsForm extends Component {
         }
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
-                id: this.props.reduxStore.shows.editShowReducer.id,
-                date: Moment(this.props.reduxStore.shows.editShowReducer.show_date).format('YYYY-MM-DD'),
-                location: this.props.reduxStore.shows.editShowReducer.location,
-                ticket: this.props.reduxStore.shows.editShowReducer.ticket,
-                ticket_url: ticketUrl
+                show: {
+                    id: this.props.reduxStore.shows.editShowReducer.id,
+                    date: Moment(this.props.reduxStore.shows.editShowReducer.show_date).format('YYYY-MM-DD'),
+                    location: this.props.reduxStore.shows.editShowReducer.location,
+                    ticket: this.props.reduxStore.shows.editShowReducer.ticket,
+                    ticket_url: ticketUrl
+                }
             })
         }
     }
 
-    handleChangeFor = (event, propToChange) => {
+    // handleChangeFor = (event, propToChange) => {
+    //     if (propToChange === 'ticket') {
+    //         this.setState({
+    //             ...this.state,
+    //             [propToChange]: !this.state.ticket
+    //         })
+    //     } else {
+    //         this.setState({
+    //             ...this.state,
+    //             [propToChange]: event.target.value
+    //         })
+    //     }
+    // }
+
+    handleChangeFor = (event, propToChange, errorToChange) => {
         if (propToChange === 'ticket') {
             this.setState({
-                ...this.state,
-                [propToChange]: !this.state.ticket
-            })
+                show: {
+                    ...this.state.show,
+                    [propToChange]: !this.state.show.ticket
+                },
+                [errorToChange]: false
+            });
         } else {
             this.setState({
-                ...this.state,
-                [propToChange]: event.target.value
-            })
+                show: {
+                    ...this.state.show,
+                    [propToChange]: event.target.value
+                },
+                [errorToChange]: false
+            });
+        }
+
+        if (event.target.value === '') {
+            this.setState({
+                [errorToChange]: true
+            });
         }
     }
 
     handleSubmit = (event, addOrEdit) => {
         event.preventDefault();
-        if (addOrEdit === 'add') {
-            this.props.dispatch({ type: 'ADD_SHOW', payload: this.state });
-            // this.props.history.push('/manage-shows');
-        } else {
-            this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state });
-            // this.props.history.push('/manage-shows');
 
+        if (this.state.show.date === '') {
+            this.setState({
+                dateError: true
+            })
+        } else {
+            this.setState({
+                dateError: false
+            })
+        }
+
+        if (this.state.show.location === '') {
+            this.setState({
+                locationError: true
+            })
+        } else {
+            this.setState({
+                locationError: false
+            })
+        }
+
+        if (this.state.dateError === false && this.state.locationError === false) {
+            if (addOrEdit === 'add') {
+                this.props.dispatch({ type: 'ADD_SHOW', payload: this.state.show });
+                // this.props.history.push('/manage-shows');
+            } else {
+                this.props.dispatch({ type: 'UPDATE_SHOW', payload: this.state.show });
+                // this.props.history.push('/manage-shows');
+
+            }
         }
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }
@@ -151,18 +206,19 @@ class ShowsForm extends Component {
         this.props.history.push('/manage-shows');
     }
 
-    cancel = () => {
-        this.setState({
-            date: '',
-            location: '',
-            ticket: false,
-            ticket_url: ''
-        })
-        this.props.history.push('/manage-shows');
-    }
+    // cancel = () => {
+    //     this.setState({
+    //         date: '',
+    //         location: '',
+    //         ticket: false,
+    //         ticket_url: ''
+    //     })
+    //     this.props.history.push('/manage-shows');
+    // }
 
     render() {
         const { classes } = this.props;
+        console.log(this.state);
         return (
             <>
                 <div className="container show-form-page">
@@ -171,7 +227,7 @@ class ShowsForm extends Component {
                         <TextField
                             id="date"
                             type="date"
-                            value={this.state.date}
+                            value={this.state.show.date}
                             className={classes.textFieldDate}
                             InputLabelProps={{
                                 classes: {
@@ -187,9 +243,10 @@ class ShowsForm extends Component {
                                 },
                             }}
                             label="Show Date"
-                            onChange={(event) => this.handleChangeFor(event, 'date')}
+                            onChange={(event) => this.handleChangeFor(event, 'date', 'dateError')}
                             margin="normal"
                             required
+                            error={this.state.dateError}
                         />
                         <TextField
                             label="Location"
@@ -206,16 +263,17 @@ class ShowsForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.location}
-                            onChange={(event) => this.handleChangeFor(event, 'location')}
+                            value={this.state.show.location}
+                            onChange={(event) => this.handleChangeFor(event, 'location', 'locationError')}
                             margin="normal"
                             required
+                            error={this.state.locationError}
                         />
                         <br />
                         <FormControlLabel className={classes.checkboxLabel}
                             control={
                                 <Checkbox
-                                    className={classes.checkbox} checked={this.state.ticket}
+                                    className={classes.checkbox} checked={this.state.show.ticket}
                                     onChange={(event) => this.handleChangeFor(event, 'ticket')}
                                     value="ticket"
                                     color="default"
@@ -238,7 +296,7 @@ class ShowsForm extends Component {
                                     underline: classes.cssUnderline,
                                 },
                             }}
-                            value={this.state.ticket_url}
+                            value={this.state.show.ticket_url}
                             onChange={(event) => this.handleChangeFor(event, 'ticket_url')}
                             margin="normal"
                         />
