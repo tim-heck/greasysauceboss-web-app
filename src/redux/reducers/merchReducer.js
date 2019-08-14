@@ -10,6 +10,12 @@ import { combineReducers } from 'redux';
 //     }
 // }
 
+/**
+ * Merch Reducer
+ * Keeps track of the current products available to the user
+ * @param {array} state stores all products
+ * @param {object} action products available
+ */
 const merchReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_PRODUCTS':
@@ -20,6 +26,7 @@ const merchReducer = (state = [], action) => {
 }
 
 /**
+ * Edit Merch Reducer
  * Reducer that keeps track of the currect product that is being updated
  * Information is stored when the user clicks the edit button
  * @param {object} state where that product's information will be stored and accessible
@@ -34,6 +41,13 @@ const editMerchReducer = (state = {}, action) => {
     }
 }
 
+/**
+ * View Merch Reducer
+ * Contains the information of a specific product that the user clicked
+ * on the generic Merch Page
+ * @param {object} state stores the specific products information
+ * @param {object} action product to view's id
+ */
 const viewMerchReducer = (state = {}, action) => {
     switch (action.type) {
         case 'SET_VIEW_PRODUCT':
@@ -43,6 +57,12 @@ const viewMerchReducer = (state = {}, action) => {
     }
 }
 
+/**
+ * One object that has all products, editing information
+ * the merch item being viewed individually
+ * these will be on the redux state at:
+ * state.merch.merchReducer, state.merch.editMerchReducer, state.merch.viewMerchReducer
+ */
 export default combineReducers({
     merchReducer,
     editMerchReducer,
