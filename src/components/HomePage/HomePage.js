@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import './HomePage.css';
 
 class HomePage extends Component {
 
-    componentDidMount() {
-        document.getElementById('home-page').addEventListener('mousemove', function (event) {
-            let translateX = -((event.pageX - 600) * 0.15);
-            let translateY = -((event.pageY - 600) * 0.15);
-            document.getElementById('block').style.transform = "translate(" + translateX + "px, " + translateY + "px)"
-        })
-    }
+    /**
+     * Method runs when the component is ready
+     * The snippet activates on an mouseover event triggering on the home-page element
+     * it then does some math to move the background based on the mouse position
+     */
+    // componentDidMount() {
+    //     document.getElementById('home-page').addEventListener('mousemove', function (event) {
+    //         let translateX = -((event.pageX - 600) * 0.15);
+    //         let translateY = -((event.pageY - 600) * 0.15);
+    //         document.getElementById('block').style.transform = "translate(" + translateX + "px, " + translateY + "px)"
+    //     })
+    // }
 
     render() {
         return (
@@ -22,9 +28,8 @@ class HomePage extends Component {
                             <iframe
                                 width="560" height="315"
                                 src="https://www.youtube.com/embed/Rl66Yq-rUHA"
-                                frameBorder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen title="Lastest Video">
+                                title="Lastest Video">
                             </iframe>
                         </div>
                     </div>

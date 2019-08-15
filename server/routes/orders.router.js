@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
-// const axios = require('axios');
 
+/**
+ * GET route for all orders
+ * Selects all order from the orders table and orders them by id 
+ */
 router.get('/', (req, res) => {
-    const sqlText = `SELECT * FROM orders;`;
+    const sqlText = `SELECT * FROM orders ORDER BY id ASC;`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(err => {
@@ -13,6 +16,10 @@ router.get('/', (req, res) => {
     })
 })
 
+/**
+ * GET route for a specific order
+ * Selects a specific order based on the id of that order
+ */
 router.get('/:user_id', (req, res) => {
     const sqlText = `
         SELECT orders.order_date, orders.user_id, orders.total_price_pennies, 
@@ -30,6 +37,14 @@ router.get('/:user_id', (req, res) => {
     })
 })
 
+/**
+ * POST route for a new order
+ * Using Date() creates today's date
+ * First query: Adds the order to the order table and keeps track of the id
+ * for that specific order, assigning it to orderInsertDetails
+ * Second query: Uses the order_id and the product_id to add each product of
+ * of the new order to the line_items table
+ */
 router.post('/', async (req, res) => {
     const client = await pool.connect();
 
@@ -39,7 +54,7 @@ router.post('/', async (req, res) => {
             cart
         } = req.body;
         await client.query('BEGIN')
-        // Grabs date snippet from: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+        // Grabed date snippet from: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -47,10 +62,13 @@ router.post('/', async (req, res) => {
 
         today = mm + '/' + dd + '/' + yyyy;
         // end date snippet
+        // console.log('req.user', req.user);
+        // console.log('req.user.id:',req.user.id);
         const orderInsertDetails = await client.query(`
         INSERT INTO orders (order_date, user_id, total_price_pennies)
         VALUES ($1, $2, $3) 
         RETURNING id;`, [today, req.user.id, total_price_pennies]);
+        console.log(orderInsertDetails.rows[0].id);
         const orderId = orderInsertDetails.rows[0].id;
 
         await Promise.all(cart.map(cartItem => {
@@ -68,21 +86,6 @@ router.post('/', async (req, res) => {
     } finally {
         client.release();
     }
-})
-
-router.post('/cart', (req, res) => {
-    const sqlText = `
-        INSERT INTO line_items (quantity, order_id, product_id)
-        VALUES ($1, $2, $3);
-    `;
-    const values = [req.body.quantity, req.order_id, req.body.product_id];
-    pool.query(sqlText, values).then(result => {
-        console.log(result);
-        res.sendStatus(201);
-    }).catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-    })
 })
 
 module.exports = router;

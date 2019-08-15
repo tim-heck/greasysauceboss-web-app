@@ -11,7 +11,8 @@ CREATE TABLE "products" (
     "title" VARCHAR(300) NOT NULL,
 	"description" TEXT NOT NULL,
 	"price_pennies" INT NOT NULL,
-    "image_url" VARCHAR(2000)
+    "image_url" VARCHAR(2000),
+	"hide" BOOLEAN DEFAULT false
 );
 
 CREATE TABLE "orders" (
@@ -35,4 +36,3 @@ CREATE TABLE "shows" (
 	"ticket" BOOLEAN DEFAULT false,
     "ticket_url" VARCHAR(2000)
 );
-

@@ -1,20 +1,29 @@
 body {
-    font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', 'Roboto', Arial, Verdana, sans-serif;
     margin: 0px;
 }
 
+/* #react-root {
+    min-height: 100vh;
+    display: flex;
+} */
+
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+    color: tomato;
+    margin: 10px 20px;
+    font-size: 12px;
 }
 
 form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
-    margin: 20px auto;
+    background-color: #c5c6c7;
+    background-color: #fff;
+    border: 1px solid #000;
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+    text-align: left;
     padding: 25px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 input {
@@ -22,28 +31,42 @@ input {
     margin-bottom: 10px;
 }
 
-.log-in, .log-out, .register {
-  background-color: #00acb0;
-  border-radius: 4px;
-  color: #f8f8f8;
-  min-height: 50px;
-  min-width: 100px;
-  outline:0;
-  cursor: pointer;
+.log-in,
+.log-out,
+.register {
+    background-color: #00acb0;
+    border-radius: 4px;
+    color: #f8f8f8;
+    min-height: 50px;
+    min-width: 100px;
+    outline: 0;
+    cursor: pointer;
 }
 
-.log-in:hover, .log-out:hover, .register:hover {
-  background-color: #008183;
+.log-in:hover,
+.log-out:hover,
+.register:hover {
+    background-color: #008183;
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
-    background:none;
-    color:inherit;
-    border:none;
-    padding:0;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
     font: inherit;
-    outline:0;
-    border-bottom:1px solid #444; 
+    outline: 0;
+    border-bottom: 1px solid #444;
     cursor: pointer;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.push-footer {
+    min-height: 100vh;
 }

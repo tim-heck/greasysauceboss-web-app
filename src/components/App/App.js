@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -25,9 +25,10 @@ import ManageShows from '../Admin/ManageShows/ManageShows';
 import MerchForm from '../Admin/ManageMerch/MerchForm';
 import ShowsForm from '../Admin/ManageShows/ShowsForm';
 import MerchPage from '../MerchPage/MerchPage';
-import ReviewPage from '../ReviewPage/ReviewPage';
+// import ReviewPage from '../ReviewPage/ReviewPage';
 import MerchItemPage from '../MerchPage/MerchItemPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import Notifications from 'react-notify-toast';
 
 class App extends Component {
   // componentDidMount () {
@@ -37,7 +38,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="push-footer">
+          <Notifications />
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -84,11 +86,12 @@ class App extends Component {
               path="/cart"
               component={CartPage}
             />
-            <ProtectedRoute
+            {/* STRETCH GOAL - Review page would be added with STRIPE */}
+            {/* <ProtectedRoute
               exact
               path="/review-order"
               component={ReviewPage}
-            />
+            /> */}
             <ProtectedRoute
               exact
               path="/profile"
@@ -117,10 +120,11 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
         </div>
+        <Footer />
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);

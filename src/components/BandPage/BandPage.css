@@ -1,0 +1,27 @@
+.band-page {
+    max-width: 1250px;
+}
+
+.band-page p {
+    text-align: left;
+    line-height: 23px;
+}
+
+.band-page ul {
+    margin: 0 auto;
+}
+
+.band-page ul .band-member  {
+    display: inline-block;
+    margin: 0 20px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.band-member p {
+    max-width: 500px;
+}
+
+.band-bio {
+    margin-bottom: 80px;
+}

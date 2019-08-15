@@ -1,5 +1,52 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  textField: {
+    width: 200,
+    margin: "5px 0 0 0"
+  },
+  button: {
+    fontFamily: "Montserrat, sans-serif",
+    backgroundColor: "#1f2833",
+    marginTop: "20px",
+    color: "#fff",
+    padding: "10px 25px",
+    letterSpacing: "1.5px",
+    fontWeight: "700",
+    transition: ".3s",
+    '&:hover': {
+      backgroundColor: "#fff",
+      color: "#1f2833",
+      boxShadow: "0px 0px 0px 3px #66fcf1",
+    }
+  },
+  buttonLogin: {
+    marginTop: 0
+  },
+  form: {
+    width: 250,
+    textAlign: "center"
+  },
+  title: {
+    fontSize: 30,
+    margin: "0 0 10px 0",
+  },
+  cssLabel: {
+    '&$cssFocused': {
+      color: "#1f2833",
+    },
+  },
+  cssFocused: {},
+  cssUnderline: {
+    '&:after': {
+      borderBottomColor: "#1f2833",
+    },
+  },
+});
 
 class RegisterPage extends Component {
   state = {
@@ -19,7 +66,7 @@ class RegisterPage extends Component {
         },
       });
     } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
   } // end registerUser
 
@@ -30,57 +77,78 @@ class RegisterPage extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className="alert"
-            role="alert"
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
+        <form onSubmit={this.registerUser} className={classes.form}>
+          <h1 className={classes.title}>Register User</h1>
+          {this.props.errors.registrationMessage && (
+            <h6 className="alert" role="alert">
+              {this.props.errors.registrationMessage}
+            </h6>
+          )}
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
+            <TextField
+              label="Username"
+              className={classes.textField}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  focused: classes.cssFocused,
+                  underline: classes.cssUnderline,
+                },
+              }}
+              value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
+              margin="normal"
+              required
             />
+          </div>
+          <div>
+            <TextField
+              type="password"
+              label="Password"
+              className={classes.textField}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  focused: classes.cssFocused,
+                  underline: classes.cssUnderline,
+                },
+              }}
+              value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+              margin="normal"
+              required
+            />
+          </div>
+          <br />
+          <div>
+            <Button
+              variant="contained"
+              className={classes.button}
+              type="submit">
+              Register
+            </Button>
           </div>
         </form>
         <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
-          >
+          <h4>Already have a greasy account? Login now!</h4>
+          <Button
+            variant="contained" className={`${classes.button} ${classes.buttonLogin}`}
+            type="submit" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
             Login
-          </button>
+          </Button>
         </center>
       </div>
     );
@@ -94,5 +162,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default withStyles(styles)(connect(mapStateToProps)(RegisterPage));
 

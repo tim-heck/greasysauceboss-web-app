@@ -1,0 +1,30 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-title {
+    text-align: left;
+    font-size: 30px;
+}
+
+.shows-list {
+    margin: 100px auto 0;
+    width: 710px;
+    text-align: center;
+}
+
+.show-item {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+}
+
+.location {
+    width: 400px;
+}
+
+.ticket {
+    width: 110px;
+}
