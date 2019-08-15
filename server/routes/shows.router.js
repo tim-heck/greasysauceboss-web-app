@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route for all shows
@@ -22,7 +23,7 @@ router.get('/', (req, res) => {
  * POST route for adding a new show
  * Adds a show to the shows table
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         INSERT INTO shows (show_date, location, ticket, ticket_url)
         VALUES ($1, $2, $3, $4);
@@ -41,7 +42,7 @@ router.post('/', (req, res) => {
  * PUT route for updating a specific show
  * Updates a specific show in the shows table based on the id
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('req.body in PUT:', req.body)
     const sqlText = `
         UPDATE shows SET show_date = $1, location = $2, ticket = $3, ticket_url = $4
@@ -61,7 +62,7 @@ router.put('/:id', (req, res) => {
  * DELETE route for deleting a specific show
  * Removes a specific show based on the id
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         DELETE FROM shows WHERE id = $1;
     `;

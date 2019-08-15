@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route for all orders
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
  * GET route for a specific order
  * Selects a specific order based on the id of that order
  */
-router.get('/:user_id', (req, res) => {
+router.get('/:user_id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         SELECT orders.order_date, orders.user_id, orders.total_price_pennies, 
         line_items.quantity, line_items.order_id, 
@@ -45,7 +46,7 @@ router.get('/:user_id', (req, res) => {
  * Second query: Uses the order_id and the product_id to add each product of
  * of the new order to the line_items table
  */
-router.post('/', async (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
     const client = await pool.connect();
 
     try {
