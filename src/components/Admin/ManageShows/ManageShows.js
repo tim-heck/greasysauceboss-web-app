@@ -32,6 +32,7 @@ class ManageShows extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_SHOWS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+        // TODO: Check for admin access
     }
 
     /**

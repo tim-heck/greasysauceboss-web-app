@@ -105,9 +105,13 @@ class ShowsForm extends Component {
                     location: this.props.reduxStore.shows.editShowReducer.location,
                     ticket: this.props.reduxStore.shows.editShowReducer.ticket,
                     ticket_url: ticketUrl
-                }
+                },
+                dateError: false,
+                locationError: false,
+                ticketError: false,
             })
         }
+        // TODO: Check for admin access
     }
 
     /**
@@ -119,13 +123,41 @@ class ShowsForm extends Component {
     handleChangeFor = (event, propToChange, errorToChange) => {
         // The ticket value is handle differently since it is a checkbox
         if (propToChange === 'ticket') {
-            this.setState({
-                show: {
-                    ...this.state.show,
-                    [propToChange]: event.target.checked
-                },
-                [errorToChange]: false
-            });
+            if ((event.target.checked && this.state.show.ticket_url === '') || (!event.target.checked && this.state.show.ticket_url !== '')) {
+                this.setState({
+                    show: {
+                        ...this.state.show,
+                        [propToChange]: event.target.checked
+                    },
+                    [errorToChange]: true
+                });
+            } else {
+                this.setState({
+                    show: {
+                        ...this.state.show,
+                        [propToChange]: event.target.checked
+                    },
+                    [errorToChange]: false
+                });
+            }
+        } else if (propToChange === 'ticket_url') {
+            if ((event.target.value === '' && this.state.show.ticket) || (event.target.value !== '' && !this.state.show.ticket)) {
+                this.setState({
+                    show: {
+                        ...this.state.show,
+                        [propToChange]: event.target.value
+                    },
+                    [errorToChange]: true
+                });
+            } else {
+                this.setState({
+                    show: {
+                        ...this.state.show,
+                        [propToChange]: event.target.value
+                    },
+                    [errorToChange]: false
+                });
+            }
         } else {
             this.setState({
                 show: {
@@ -135,13 +167,31 @@ class ShowsForm extends Component {
                 [errorToChange]: false
             });
         }
+            // if (event.target.checked === true && this.state.show.ticket_url !== '') {
+            //     this.setState({
+            //         show: {
+            //             ...this.state.show,
+            //             [propToChange]: event.target.checked
+            //         },
+            //         [errorToChange]: false
+            //     })
+            // } else if (event.target.checked === false && this.state.show.ticket_url === '') {
+            //     this.setState({
+            //         show: {
+            //             ...this.state.show,
+            //             [propToChange]: event.target.checked
+            //         },
+            //         [errorToChange]: true
+            //     })
+            // }
+        
 
         // Checks if the input values are empty
-        if (event.target.value === '') {
-            this.setState({
-                [errorToChange]: true
-            });
-        }
+        // if (event.target.value === '') {
+        //     this.setState({
+        //         [errorToChange]: true
+        //     });
+        // }
     }
 
     /**
@@ -173,7 +223,17 @@ class ShowsForm extends Component {
             })
         }
 
-        if (this.state.dateError === false && this.state.locationError === false) {
+        if ((this.state.show.ticket === true && this.state.show.ticket_url === '') || (this.state.show.ticket === false && this.state.show.ticket_url !== '')) {
+            this.setState({
+                ticketError: true
+            })
+        } else {
+            this.setState({
+                ticketError: false
+            })
+        }
+
+        if (this.state.dateError === false && this.state.locationError === false && this.state.ticketError === false) {
             if (addOrEdit === 'add') {
                 // add show to DB
                 this.props.dispatch({ type: 'ADD_SHOW', payload: this.state.show });
@@ -217,6 +277,7 @@ class ShowsForm extends Component {
 
     render() {
         const { classes } = this.props;
+        console.log(this.state)
         return (
             <>
                 <div className="container show-form-page">
@@ -272,7 +333,7 @@ class ShowsForm extends Component {
                             control={
                                 <Checkbox
                                     className={classes.checkbox} checked={this.state.show.ticket}
-                                    onChange={(event) => this.handleChangeFor(event, 'ticket')}
+                                    onChange={(event) => this.handleChangeFor(event, 'ticket', 'ticketError')}
                                     value="ticket"
                                     color="default"
                                 />
@@ -295,7 +356,7 @@ class ShowsForm extends Component {
                                 },
                             }}
                             value={this.state.show.ticket_url}
-                            onChange={(event) => this.handleChangeFor(event, 'ticket_url')}
+                            onChange={(event) => this.handleChangeFor(event, 'ticket_url', 'ticketError')}
                             margin="normal"
                         />
                         <br />

@@ -52,6 +52,7 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
+    firstName: '',
   };
 
   registerUser = (event) => {
@@ -63,6 +64,7 @@ class RegisterPage extends Component {
         payload: {
           username: this.state.username,
           password: this.state.password,
+          firstName: this.state.firstName
         },
       });
     } else {
@@ -128,6 +130,28 @@ class RegisterPage extends Component {
               }}
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
+              margin="normal"
+              required
+            />
+          </div>
+          <div>
+            <TextField
+              label="First Name"
+              className={classes.textField}
+              InputLabelProps={{
+                classes: {
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                },
+              }}
+              InputProps={{
+                classes: {
+                  focused: classes.cssFocused,
+                  underline: classes.cssUnderline,
+                },
+              }}
+              value={this.state.firstName}
+              onChange={this.handleInputChangeFor('firstName')}
               margin="normal"
               required
             />

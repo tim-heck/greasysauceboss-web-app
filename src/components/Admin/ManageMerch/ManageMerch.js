@@ -61,6 +61,7 @@ class ManageMerch extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
+        // TODO: Check for admin access
     }
 
     /**

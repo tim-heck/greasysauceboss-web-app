@@ -95,6 +95,7 @@ class MerchForm extends Component {
                 }
             })
         }
+        // TODO: Check for admin access
     }
 
     /**

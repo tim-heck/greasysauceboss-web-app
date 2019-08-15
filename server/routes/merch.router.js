@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route for all products
@@ -34,7 +35,7 @@ router.get('/:id', (req, res) => {
  * POST route for a new product
  * Adds a product to the product table
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         INSERT INTO products (title, description, price_pennies, image_url, hide)
         VALUES ($1, $2, $3, $4, $5);
@@ -52,7 +53,7 @@ router.post('/', (req, res) => {
  * PUT route for updating a specific product
  * Updates a specific product's information based on the id
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE products SET title = $1, description = $2, price_pennies = $3, image_url = $4, hide = $5
         WHERE id = $6;
@@ -70,7 +71,7 @@ router.put('/:id', (req, res) => {
  * PUT route for updating a specific product's hide property
  * Updates only the hide property of a specific product based on the id
  */
-router.put('/hide/:id', (req, res) => {
+router.put('/hide/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE products SET hide = $1
         WHERE id = $2;
@@ -88,7 +89,7 @@ router.put('/hide/:id', (req, res) => {
  * DELETE route for deleting a specific product
  * Removes a specific product based on the id
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         DELETE FROM products WHERE id = $1;
     `;
