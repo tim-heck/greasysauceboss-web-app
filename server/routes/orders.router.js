@@ -69,7 +69,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         INSERT INTO orders (order_date, user_id, total_price_pennies)
         VALUES ($1, $2, $3) 
         RETURNING id;`, [today, req.user.id, total_price_pennies]);
-        console.log(orderInsertDetails.rows[0].id);
         const orderId = orderInsertDetails.rows[0].id;
 
         await Promise.all(cart.map(cartItem => {

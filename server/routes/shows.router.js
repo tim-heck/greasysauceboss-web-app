@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
     // console.log('shows GET route')
     const sqlText = `SELECT * FROM shows ORDER BY show_date ASC;`;
     pool.query(sqlText).then(result => {
-        console.log(result.rows);
         res.send(result.rows);
     }).catch(err => {
         console.log(err);
@@ -30,7 +29,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     `;
     const values = [req.body.date, req.body.location, req.body.ticket, req.body.ticket_url];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(201);
     }).catch(err => {
         console.log(err);
@@ -50,7 +48,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     `;
     const values = [req.body.date, req.body.location, req.body.ticket, req.body.ticket_url, req.params.id];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(200);
     }).catch(err => {
         console.log(err);
@@ -68,7 +65,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     `;
     const values = [req.params.id];
     pool.query(sqlText, values).then(result => {
-        console.log(result.rows);
         res.sendStatus(200);
     }).catch(err => {
         console.log(err);
