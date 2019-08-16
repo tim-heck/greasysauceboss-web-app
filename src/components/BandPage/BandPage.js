@@ -8,7 +8,7 @@ class BandPage extends Component {
         return (
             <>
                 <div className="container band-page">
-                    <h2 className="page-title">GreasySauceBoss</h2>
+                    <h2 className="page-title">GreasySauceBoss - Who We Are</h2>
                     <p className="band-bio">We're a couple of kids from the midwest that
                     decided to start a band in the summer of 2017. Our intention was to share
                     our passion for pop-punk music with anyone who wants to listen. We do not
@@ -16,7 +16,8 @@ class BandPage extends Component {
                     artists trying to have a dope time creating some greasy content and hope
                     to bring some enjoyment to people who listen.</p>
                     <ul>
-                        <li className='band-member'>
+                        <li className="band-member">
+                            <h2>Tim</h2>
                             <img height="400" src="images/tim-bio.png" alt="Tim Heck head shot" />
                             <p>Tim Heck is one of the founding members of GreasySauceBoss who is
                                 currently the lead vocalist and rhythm guitarist. Growing up in
@@ -32,7 +33,8 @@ class BandPage extends Component {
                                 has a whole other origin story of it's own. 
                             </p>
                         </li>
-                        <li className='band-member'>
+                        <li className="band-member">
+                            <h2>Kyle</h2>
                             <img height="400" src="images/kyle-bio.png" alt="Kyle Larsen head shot" />
                             <p>Kyle Larsen is one of the founding members of GreasySauceBoss who
                                 currently plays bass and rhythm guitar for the band. He grew up
