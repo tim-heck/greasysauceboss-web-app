@@ -1,5 +1,5 @@
 .band-page {
-    max-width: 1250px;
+    max-width: 800px;
 }
 
 .band-page p {
@@ -19,9 +19,9 @@
 }
 
 .band-member p {
-    max-width: 500px;
+    max-width: 300px;
 }
 
 .band-bio {
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }

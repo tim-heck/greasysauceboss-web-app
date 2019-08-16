@@ -59,7 +59,7 @@ class ManageMerch extends Component {
      * Sets edit mode to false if it was true onload
      */
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_USER' })
+        this.props.dispatch({ type: 'FETCH_USER' });
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
     }

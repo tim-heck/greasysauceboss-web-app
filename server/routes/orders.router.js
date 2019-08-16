@@ -27,9 +27,10 @@ router.get('/:user_id', rejectUnauthenticated, (req, res) => {
         line_items.quantity, line_items.order_id, 
         products.title, products.description, products.price_pennies, products.image_url
         FROM orders
-        JOIN "user" ON "user".id = $1
+        JOIN "user" ON "user".id = orders.user_id
         JOIN line_items ON line_items.order_id = orders.id
-        JOIN products ON line_items.product_id = products.id;`;
+        JOIN products ON line_items.product_id = products.id
+        WHERE "user".id = $1;`;
     pool.query(sqlText, [req.user.id]).then(result => {
         res.send(result.rows);
     }).catch(err => {
