@@ -84,6 +84,7 @@ class MerchForm extends Component {
      * If edit mode is on, sets the state with the product information to edit
      */
     componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' });
         if (this.props.reduxStore.editMode.edit) {
             this.setState({
                 product: {
@@ -213,114 +214,124 @@ class MerchForm extends Component {
 
     render() {
         const { classes } = this.props;
-        return (
-            <>
-                <div className="container merch-form-page">
-                    <h2 className="page-title">Merch Form</h2>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
-                            label="Title"
-                            className={classes.textFieldTitle}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.product.title}
-                            onChange={(event) => this.handleChangeFor(event, 'title', 'titleError')}
-                            margin="normal"
-                            required
-                            error={this.state.titleError}
-                        />
-                        <br />
-                        <TextField
-                            label="Price (in pennies)"
-                            className={classes.textFieldPrice}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.product.price_pennies}
-                            onChange={(event) => this.handleChangeFor(event, 'price_pennies', 'priceError')}
-                            margin="normal"
-                            required
-                            type="number"
-                            error={this.state.priceError}
-                        />
-                        <br />
-                        <TextField
-                            label="Description"
-                            multiline
-                            rows="6"
-                            className={classes.textFieldDescription}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.product.description}
-                            onChange={(event) => this.handleChangeFor(event, 'description', 'descriptionError')}
-                            margin="normal"
-                            required
-                            error={this.state.descriptionError}
-                        />
-                        <br />
-                        <TextField
-                            label="Image URL"
-                            className={classes.textFieldImageUrl}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.product.image_url}
-                            onChange={(event) => this.handleChangeFor(event, 'image_url', 'urlError')}
-                            margin="normal"
-                            required
-                            error={this.state.urlError}
-                        />
-                        <br />
-                        <div className={classes.btnGroup}>
-                            <Button
-                                variant="contained" className={classes.button}
-                                onClick={this.back}>
-                                Back to Manage Merch
+        if (this.props.reduxStore.user.admin === true) {
+            return (
+                <>
+                    <div className="container merch-form-page">
+                        <h2 className="page-title">Merch Form</h2>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                label="Title"
+                                className={classes.textFieldTitle}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.product.title}
+                                onChange={(event) => this.handleChangeFor(event, 'title', 'titleError')}
+                                margin="normal"
+                                required
+                                error={this.state.titleError}
+                            />
+                            <br />
+                            <TextField
+                                label="Price (in pennies)"
+                                className={classes.textFieldPrice}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.product.price_pennies}
+                                onChange={(event) => this.handleChangeFor(event, 'price_pennies', 'priceError')}
+                                margin="normal"
+                                required
+                                type="number"
+                                error={this.state.priceError}
+                            />
+                            <br />
+                            <TextField
+                                label="Description"
+                                multiline
+                                rows="6"
+                                className={classes.textFieldDescription}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.product.description}
+                                onChange={(event) => this.handleChangeFor(event, 'description', 'descriptionError')}
+                                margin="normal"
+                                required
+                                error={this.state.descriptionError}
+                            />
+                            <br />
+                            <TextField
+                                label="Image URL"
+                                className={classes.textFieldImageUrl}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.product.image_url}
+                                onChange={(event) => this.handleChangeFor(event, 'image_url', 'urlError')}
+                                margin="normal"
+                                required
+                                error={this.state.urlError}
+                            />
+                            <br />
+                            <div className={classes.btnGroup}>
+                                <Button
+                                    variant="contained" className={classes.button}
+                                    onClick={this.back}>
+                                    Back to Manage Merch
                             </Button>
-                            {this.checkEditMode()}
-                        </div>
-                    </form>
+                                {this.checkEditMode()}
+                            </div>
+                        </form>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <div className="container merch-list">
+                    <h2 className="page-title center">Error: 404</h2>
+                    <h2 className="page-title center">Oh no! This very greasy page does not exist!</h2>
+                    <h2 className="page-title center">Try again later, and remember, stay greasy!</h2>
                 </div>
-            </>
-        );
+            );
+        }
     }
 }
 

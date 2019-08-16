@@ -70,3 +70,7 @@ input {
 .push-footer {
     min-height: 100vh;
 }
+
+.center {
+    text-align: center!important;
+}

@@ -93,6 +93,7 @@ class ShowsForm extends Component {
      * If edit mode is on, sets the state with the show information to edit
      */
     componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' })
         let ticketUrl = '';
         if (this.props.reduxStore.shows.editShowReducer.ticket_url !== null) {
             ticketUrl = this.props.reduxStore.shows.editShowReducer.ticket_url;
@@ -167,24 +168,24 @@ class ShowsForm extends Component {
                 [errorToChange]: false
             });
         }
-            // if (event.target.checked === true && this.state.show.ticket_url !== '') {
-            //     this.setState({
-            //         show: {
-            //             ...this.state.show,
-            //             [propToChange]: event.target.checked
-            //         },
-            //         [errorToChange]: false
-            //     })
-            // } else if (event.target.checked === false && this.state.show.ticket_url === '') {
-            //     this.setState({
-            //         show: {
-            //             ...this.state.show,
-            //             [propToChange]: event.target.checked
-            //         },
-            //         [errorToChange]: true
-            //     })
-            // }
-        
+        // if (event.target.checked === true && this.state.show.ticket_url !== '') {
+        //     this.setState({
+        //         show: {
+        //             ...this.state.show,
+        //             [propToChange]: event.target.checked
+        //         },
+        //         [errorToChange]: false
+        //     })
+        // } else if (event.target.checked === false && this.state.show.ticket_url === '') {
+        //     this.setState({
+        //         show: {
+        //             ...this.state.show,
+        //             [propToChange]: event.target.checked
+        //         },
+        //         [errorToChange]: true
+        //     })
+        // }
+
 
         // Checks if the input values are empty
         // if (event.target.value === '') {
@@ -277,101 +278,110 @@ class ShowsForm extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log(this.state)
-        return (
-            <>
-                <div className="container show-form-page">
-                    <h2 className="page-title">Show Form</h2>
-                    <form className={classes.form} noValidate autoComplete="off">
-                        <TextField
-                            id="date"
-                            type="date"
-                            value={this.state.show.date}
-                            className={classes.textFieldDate}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                                shrink: true,
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            label="Show Date"
-                            onChange={(event) => this.handleChangeFor(event, 'date', 'dateError')}
-                            margin="normal"
-                            required
-                            error={this.state.dateError}
-                        />
-                        <TextField
-                            label="Location"
-                            className={classes.textFieldLocation}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.show.location}
-                            onChange={(event) => this.handleChangeFor(event, 'location', 'locationError')}
-                            margin="normal"
-                            required
-                            error={this.state.locationError}
-                        />
-                        <br />
-                        <FormControlLabel className={classes.checkboxLabel}
-                            control={
-                                <Checkbox
-                                    className={classes.checkbox} checked={this.state.show.ticket}
-                                    onChange={(event) => this.handleChangeFor(event, 'ticket', 'ticketError')}
-                                    value="ticket"
-                                    color="default"
-                                />
-                            }
-                            label="Tickets?"
-                        />
-                        <TextField
-                            label="Tickets URL"
-                            className={classes.textFieldTicketUrl}
-                            InputLabelProps={{
-                                classes: {
-                                    root: classes.cssLabel,
-                                    focused: classes.cssFocused,
-                                },
-                            }}
-                            InputProps={{
-                                classes: {
-                                    focused: classes.cssFocused,
-                                    underline: classes.cssUnderline,
-                                },
-                            }}
-                            value={this.state.show.ticket_url}
-                            onChange={(event) => this.handleChangeFor(event, 'ticket_url', 'ticketError')}
-                            margin="normal"
-                        />
-                        <br />
-                        <div className={classes.btnGroup}>
-                            <Button
-                                variant="contained" className={classes.button}
-                                onClick={this.back}>
-                                Back to Manage Shows
+        if (this.props.reduxStore.user.admin === true) {
+            return (
+                <>
+                    <div className="container show-form-page">
+                        <h2 className="page-title">Show Form</h2>
+                        <form className={classes.form} noValidate autoComplete="off">
+                            <TextField
+                                id="date"
+                                type="date"
+                                value={this.state.show.date}
+                                className={classes.textFieldDate}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                    shrink: true,
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                label="Show Date"
+                                onChange={(event) => this.handleChangeFor(event, 'date', 'dateError')}
+                                margin="normal"
+                                required
+                                error={this.state.dateError}
+                            />
+                            <TextField
+                                label="Location"
+                                className={classes.textFieldLocation}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.show.location}
+                                onChange={(event) => this.handleChangeFor(event, 'location', 'locationError')}
+                                margin="normal"
+                                required
+                                error={this.state.locationError}
+                            />
+                            <br />
+                            <FormControlLabel className={classes.checkboxLabel}
+                                control={
+                                    <Checkbox
+                                        className={classes.checkbox} checked={this.state.show.ticket}
+                                        onChange={(event) => this.handleChangeFor(event, 'ticket', 'ticketError')}
+                                        value="ticket"
+                                        color="default"
+                                    />
+                                }
+                                label="Tickets?"
+                            />
+                            <TextField
+                                label="Tickets URL"
+                                className={classes.textFieldTicketUrl}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                    },
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        focused: classes.cssFocused,
+                                        underline: classes.cssUnderline,
+                                    },
+                                }}
+                                value={this.state.show.ticket_url}
+                                onChange={(event) => this.handleChangeFor(event, 'ticket_url', 'ticketError')}
+                                margin="normal"
+                            />
+                            <br />
+                            <div className={classes.btnGroup}>
+                                <Button
+                                    variant="contained" className={classes.button}
+                                    onClick={this.back}>
+                                    Back to Manage Shows
                             </Button>
-                            {this.checkEditMode()}
-                        </div>
-                    </form>
+                                {this.checkEditMode()}
+                            </div>
+                        </form>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <div className="container merch-list">
+                    <h2 className="page-title center">Error: 404</h2>
+                    <h2 className="page-title center">Oh no! This very greasy page does not exist!</h2>
+                    <h2 className="page-title center">Try again later, and remember, stay greasy!</h2>
                 </div>
-            </>
-        );
+            );
+        }
     }
 }
 

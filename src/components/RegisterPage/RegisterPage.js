@@ -173,6 +173,12 @@ class RegisterPage extends Component {
             type="submit" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
             Login
           </Button>
+          <h4>Don't want to create an account yet? No problem!</h4>
+          <Button
+            variant="contained" className={`${classes.button} ${classes.buttonLogin}`}
+            type="submit" onClick={this.continueAsGuest}>
+            Continue as guest
+          </Button>
         </center>
       </div>
     );
