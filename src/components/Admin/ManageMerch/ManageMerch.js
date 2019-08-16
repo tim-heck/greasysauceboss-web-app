@@ -59,9 +59,9 @@ class ManageMerch extends Component {
      * Sets edit mode to false if it was true onload
      */
     componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' })
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
-        // TODO: Check for admin access
     }
 
     /**
@@ -86,7 +86,7 @@ class ManageMerch extends Component {
             this.props.dispatch({ type: 'DELETE_PRODUCT', payload: merchToModify });
         } else {
             // hides merch item from rendering on merch page
-            this.props.dispatch({ type: 'HIDE_PRODUCT', payload: { id: merchToModify.id, hide: !merchToModify.hide} })
+            this.props.dispatch({ type: 'HIDE_PRODUCT', payload: { id: merchToModify.id, hide: !merchToModify.hide } })
         }
     }
 
@@ -109,44 +109,54 @@ class ManageMerch extends Component {
 
     render() {
         const { classes } = this.props;
-        return (
-            <>
+        if (this.props.reduxStore.user.admin === true) {
+            return (
+                <>
+                    <div className="container merch-list">
+                        <h2 className="page-title">Manage Merch</h2>
+                        {this.props.reduxStore.merch.merchReducer.map(item =>
+                            <Card className={classes.card} key={item.id}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={item.image_url}
+                                        title={item.title}
+                                    />
+                                    <CardContent>
+                                        <Typography className={classes.typography}>
+                                            {item.title}
+                                        </Typography>
+                                        <br />
+                                        <Typography className={classes.typography}>
+                                            {item.description}
+                                        </Typography>
+                                        <br />
+                                        <Typography className={classes.typography}>
+                                            ${(item.price_pennies / 100).toFixed(2)}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions className={classes.actions}>
+                                    <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
+                                    {this.checkHidden(item)}
+                                    {/* <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button> */}
+                                </CardActions>
+                            </Card>
+                        )}
+                        <br />
+                        <Button variant="contained" className={classes.button} onClick={() => this.handleClick('add')}>Add New Merch Item</Button>
+                    </div>
+                </>
+            );
+        } else {
+            return (
                 <div className="container merch-list">
-                    <h2 className="page-title">Manage Merch</h2>
-                    {this.props.reduxStore.merch.merchReducer.map(item =>
-                        <Card className={classes.card} key={item.id}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={item.image_url}
-                                    title={item.title}
-                                />
-                                <CardContent>
-                                    <Typography className={classes.typography}>
-                                        {item.title}
-                                    </Typography>
-                                    <br />
-                                    <Typography className={classes.typography}>
-                                        {item.description}
-                                    </Typography>
-                                    <br />
-                                    <Typography className={classes.typography}>
-                                        ${(item.price_pennies / 100).toFixed(2)}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions className={classes.actions}>
-                                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
-                                {this.checkHidden(item)}
-                                {/* <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button> */}
-                            </CardActions>
-                        </Card>
-                    )}
-                    <br/>
-                    <Button variant="contained" className={classes.button} onClick={() => this.handleClick('add')}>Add New Merch Item</Button>
+                    <h2 className="page-title center">Error: 404</h2>
+                    <h2 className="page-title center">Oh no! This very greasy page does not exist!</h2>
+                    <h2 className="page-title center">Try again later, and remember, stay greasy!</h2>
                 </div>
-            </>
-        );
+            );
+        }
     }
 }
 

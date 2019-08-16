@@ -30,9 +30,9 @@ class ManageShows extends Component {
      * Sets edit mode to false if it was true onload
      */
     componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' })
         this.props.dispatch({ type: 'FETCH_SHOWS' });
         this.props.dispatch({ type: 'EDIT_MODE', payload: { edit: false } });
-        // TODO: Check for admin access
     }
 
     /**
@@ -72,26 +72,36 @@ class ManageShows extends Component {
 
     render() {
         const { classes } = this.props;
-        return (
-            <>
-                <div className="container shows-list">
-                    <h2 className="page-title">Manage Shows</h2>
-                    <ul>
-                        {this.props.reduxStore.shows.showsReducer.map(item =>
-                            <li key={item.id}>
-                                <h3 className="show-item show-date">{Moment(item.show_date).format('L')}</h3>
-                                <div className="show-item location">{item.location}</div>
-                                <div className="show-item ticket">{this.checkTickets(item)}</div>
-                                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
-                                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button>
-                            </li>
-                        )}
-                    </ul>
-                    <br />
-                    <Button variant="contained" className={classes.button} onClick={() => this.handleClick('add')}>Add New Show</Button>
+        if (this.props.reduxStore.user.admin === true) {
+            return (
+                <>
+                    <div className="container shows-list">
+                        <h2 className="page-title">Manage Shows</h2>
+                        <ul>
+                            {this.props.reduxStore.shows.showsReducer.map(item =>
+                                <li key={item.id}>
+                                    <h3 className="show-item show-date">{Moment(item.show_date).format('L')}</h3>
+                                    <div className="show-item location">{item.location}</div>
+                                    <div className="show-item ticket">{this.checkTickets(item)}</div>
+                                    <Button variant="contained" className={classes.button} onClick={() => this.handleClick('edit', item)}>Edit</Button>
+                                    <Button variant="contained" className={classes.button} onClick={() => this.handleClick('delete', item)}>Delete</Button>
+                                </li>
+                            )}
+                        </ul>
+                        <br />
+                        <Button variant="contained" className={classes.button} onClick={() => this.handleClick('add')}>Add New Show</Button>
+                    </div>
+                </>
+            );
+        } else {
+            return (
+                <div className="container merch-list">
+                    <h2 className="page-title center">Error: 404</h2>
+                    <h2 className="page-title center">Oh no! This very greasy page does not exist!</h2>
+                    <h2 className="page-title center">Try again later, and remember, stay greasy!</h2>
                 </div>
-            </>
-        );
+            );
+        }
     }
 }
 

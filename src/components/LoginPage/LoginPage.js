@@ -76,6 +76,16 @@ class LoginPage extends Component {
     });
   }
 
+  continueAsGuest = () => {
+    this.props.dispatch({
+      type: 'LOGIN',
+      payload: {
+        username: 'guest',
+        password: '123',
+      },
+    });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -148,6 +158,12 @@ class LoginPage extends Component {
             variant="contained" className={`${classes.button} ${classes.buttonRegister}`}
             type="submit" onClick={() => {this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' })}}>
             Register
+          </Button>
+          <h4>Don't want to create an account yet? No problem!</h4>
+          <Button
+            variant="contained" className={`${classes.button} ${classes.buttonRegister}`}
+            type="submit" onClick={this.continueAsGuest}>
+            Continue as guest
           </Button>
         </center>
       </>
