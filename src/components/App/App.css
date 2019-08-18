@@ -74,3 +74,12 @@ input {
 .center {
     text-align: center!important;
 }
+
+.tech-list {
+    padding-left: 20px;
+}
+
+.tech-list li {
+    display: block!important;
+    margin-bottom: 15px;
+}
