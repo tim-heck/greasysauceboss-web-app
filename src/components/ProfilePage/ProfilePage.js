@@ -124,7 +124,7 @@ class ProfilePage extends Component {
             return (
                 <>
                     <div className="container profile-page">
-                        <h2 className="page-title">What's up, {this.props.reduxStore.user.username}?!</h2>
+                        <h2 className="page-title">What's up, {this.props.reduxStore.user.name}?!</h2>
                         <h2 className="page-title">Past Orders</h2>
                         {this.props.reduxStore.order.userOrders.map((item, i) =>
                             <Card className={classes.card} key={i}>

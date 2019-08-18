@@ -85,7 +85,7 @@ class ShowsForm extends Component {
         },
         dateError: null,
         locationError: null,
-        ticketError: null,
+        ticketError: false,
     }
 
     /**
@@ -109,10 +109,8 @@ class ShowsForm extends Component {
                 },
                 dateError: false,
                 locationError: false,
-                ticketError: false,
             })
         }
-        // TODO: Check for admin access
     }
 
     /**
@@ -276,13 +274,27 @@ class ShowsForm extends Component {
         this.props.history.push('/manage-shows');
     }
 
+    fillDummyData = () => {
+        this.setState({
+            show: {
+                date: Moment('12-25-2019').format('YYYY-MM-DD'),
+                location: `The Garage`,
+                ticket: true,
+                ticket_url: 'https://www.thegaragemn.com/'
+            },
+            dateError: false,
+            locationError: false,
+            ticketError: false,
+        })
+    }
+
     render() {
         const { classes } = this.props;
         if (this.props.reduxStore.user.admin === true) {
             return (
                 <>
                     <div className="container show-form-page">
-                        <h2 className="page-title">Show Form</h2>
+                        <h2 className="page-title" onClick={this.fillDummyData}>Show Form</h2>
                         <form className={classes.form} noValidate autoComplete="off">
                             <TextField
                                 id="date"

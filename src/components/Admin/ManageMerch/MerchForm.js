@@ -93,10 +93,13 @@ class MerchForm extends Component {
                     description: this.props.reduxStore.merch.editMerchReducer.description,
                     price_pennies: this.props.reduxStore.merch.editMerchReducer.price_pennies,
                     image_url: this.props.reduxStore.merch.editMerchReducer.image_url
-                }
+                },
+                titleError: false,
+                priceError: false,
+                descriptionError: false,
+                urlError: false,
             })
         }
-        // TODO: Check for admin access
     }
 
     /**
