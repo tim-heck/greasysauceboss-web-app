@@ -22,11 +22,12 @@ React.js, Redux, JavaScript, Node.js, Express.js, SQL, Postgres, Material UI, HT
 3. `npm start server` in one terminal window
 4. `npm run client` in another terminal window
 
-<!-- ## Screen Shots
+## Screen Shots
 
-![example](public/images/)
-![example](public/images/)
-![example](public/images/) -->
+![example](public/images/greasysauceboss-home.png)
+![example](public/images/greasysauceboss-shows.png)
+![example](public/images/greasysauceboss-merch.png)
+![example](public/images/greasysauceboss-login.png)
 
 ### Completed Features
 
