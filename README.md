@@ -36,6 +36,8 @@ React.js, Redux, JavaScript, Node.js, Express.js, SQL, Postgres, Material UI, HT
 - Manage shows and merchandise as an admin
 - RESTful API/requests
 - YouTube and Spotify embeded code for easy access to the band's media
+- Admin pages for adding/editing/deleting merchandise and shows
+- Error catching for forms
 
 ### Next Steps
 
