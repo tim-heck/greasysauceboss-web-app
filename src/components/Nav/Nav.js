@@ -8,7 +8,7 @@ import AdminNav from '../Admin/AdminNav/AdminNav';
 const Nav = (props) => (
   <>
     <div className="nav">
-      <Link to="/technologies">
+      <Link to="/news">
         <img className="logo" src="images/greasysauceboss-logo-w.svg" alt="GreasySauceBoss" />
       </Link>
       <div className="nav-right">

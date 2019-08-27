@@ -29,7 +29,7 @@ import MerchPage from '../MerchPage/MerchPage';
 import MerchItemPage from '../MerchPage/MerchItemPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import Notifications from 'react-notify-toast';
-import Technologies from '../Technologies/Technologies';
+// import Technologies from '../Technologies/Technologies';
 
 class App extends Component {
   // componentDidMount () {
@@ -117,11 +117,6 @@ class App extends Component {
               exact
               path="/shows-form"
               component={ShowsForm}
-            />
-            <Route
-              exact
-              path="/technologies"
-              component={Technologies}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
